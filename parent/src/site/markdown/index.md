@@ -1,4 +1,4 @@
-## wcm.io JAX-RS
+## wcm.io Caravan JAX-RS
 
 JAX-RS integration for OSGi-based RESTful micro services.
 
