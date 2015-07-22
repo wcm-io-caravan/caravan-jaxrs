@@ -123,8 +123,24 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>io.wcm.caravan</groupId>
+      <artifactId>io.wcm.caravan.jaxrs.integration-test.sample-service-1</artifactId>
+      <version>1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>io.wcm.caravan</groupId>
+      <artifactId>io.wcm.caravan.jaxrs.integration-test.sample-service-2</artifactId>
+      <version>1-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
       <groupId>io.wcm.osgi.wrapper</groupId>
       <artifactId>io.wcm.osgi.wrapper.jersey</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.wcm.osgi.wrapper</groupId>
+      <artifactId>io.wcm.osgi.wrapper.hibernate-validator</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -413,15 +429,18 @@
             The bundles are installed in lexical order of these property names.
             All bundles must be listed as dependencies in this pom, or they won't be installed. 
             -->
-            <sling.additional.bundle.1>org.apache.sling.junit.core</sling.additional.bundle.1>
-            <sling.additional.bundle.2>guava</sling.additional.bundle.2>
-            <sling.additional.bundle.3>javax.ws.rs-api</sling.additional.bundle.3>
-            <sling.additional.bundle.4>commons-lang3</sling.additional.bundle.4>
-            <sling.additional.bundle.5>javax.annotation-api</sling.additional.bundle.5>
-            <sling.additional.bundle.6>validation-api</sling.additional.bundle.6>
-            <sling.additional.bundle.7>io.wcm.osgi.wrapper.jersey</sling.additional.bundle.7>
+            <sling.additional.bundle.01>org.apache.sling.junit.core</sling.additional.bundle.01>
+            <sling.additional.bundle.02>guava</sling.additional.bundle.02>
+            <sling.additional.bundle.03>javax.ws.rs-api</sling.additional.bundle.03>
+            <sling.additional.bundle.04>commons-lang3</sling.additional.bundle.04>
+            <sling.additional.bundle.05>javax.annotation-api</sling.additional.bundle.05>
+            <sling.additional.bundle.06>validation-api</sling.additional.bundle.06>
+            <sling.additional.bundle.07>io.wcm.osgi.wrapper.hibernate-validator</sling.additional.bundle.07>
+            <sling.additional.bundle.08>io.wcm.osgi.wrapper.jersey</sling.additional.bundle.08>
             <sling.additional.bundle.10>io.wcm.caravan.jaxrs.publisher</sling.additional.bundle.10>
-            <sling.additional.bundle.11>${project.build.finalName}.jar</sling.additional.bundle.11>
+            <sling.additional.bundle.11>io.wcm.caravan.jaxrs.integration-test.sample-service-1</sling.additional.bundle.11>
+            <sling.additional.bundle.12>io.wcm.caravan.jaxrs.integration-test.sample-service-2</sling.additional.bundle.12>
+            <sling.additional.bundle.20>${project.build.finalName}.jar</sling.additional.bundle.20>
           </systemPropertyVariables>
         </configuration>
       </plugin>

@@ -53,6 +53,11 @@
       <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
+        <configuration>
+          <instructions>
+            <Caravan-JaxRs-ApplicationPath>/caravan/jaxrs/test/sampleservice2</Caravan-JaxRs-ApplicationPath>
+          </instructions>
+        </configuration>
       </plugin>
 
       <plugin>
