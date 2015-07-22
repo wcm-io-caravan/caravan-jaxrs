@@ -31,9 +31,14 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 
-public class ServiceIdIT {
+public class JaxRsGetIT {
 
   private static final String SERVER_URL = "http://localhost:" + System.getProperty("jar.executor.server.port");
+
+  @Test
+  public void testSampleService1NotFound() throws IOException {
+    assertNotFound("/caravan/jaxrs/test/sampleservice1/invalidPath");
+  }
 
   @Test
   public void testSampleService1() throws IOException {
@@ -42,13 +47,20 @@ public class ServiceIdIT {
   }
 
   @Test
-  public void testSampleService1NotFound() throws IOException {
-    assertNotFound("/caravan/jaxrs/test/sampleservice1/invalidPath");
+  public void testSampleService2() throws IOException {
+    assertResponse("/caravan/jaxrs/test/sampleservice2/serviceId",
+        "/caravan/jaxrs/test/sampleservice2", "text/plain");
   }
 
   @Test
-  public void testSampleService2() throws IOException {
-    assertResponse("/caravan/jaxrs/test/sampleservice2/serviceId",
+  public void testSampleService1Global() throws IOException {
+    assertResponse("/caravan/jaxrs/test/sampleservice1/globalServiceId",
+        "/caravan/jaxrs/test/sampleservice1", "text/plain");
+  }
+
+  @Test
+  public void testSampleService2Global() throws IOException {
+    assertResponse("/caravan/jaxrs/test/sampleservice2/globalServiceId",
         "/caravan/jaxrs/test/sampleservice2", "text/plain");
   }
 
