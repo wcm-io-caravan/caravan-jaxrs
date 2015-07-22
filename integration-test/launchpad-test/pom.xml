@@ -26,15 +26,15 @@
     <groupId>io.wcm.caravan</groupId>
     <artifactId>io.wcm.caravan.jaxrs.parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <relativePath>../parent/pom.xml</relativePath>
+    <relativePath>../../parent/pom.xml</relativePath>
   </parent>
 
   <groupId>io.wcm.caravan</groupId>
-  <artifactId>io.wcm.caravan.jaxrs.publisher-integration-test</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <artifactId>io.wcm.caravan.jaxrs.integration-test.launchpad-test</artifactId>
+  <version>1-SNAPSHOT</version>
   <packaging>bundle</packaging>
 
-  <name>JAX-RS Publisher Integration Test</name>
+  <name>JAX-RS Integration Test Launchpad Test</name>
   <description>
     Builds a bundle with Sling server-side tests, and executes them via
     a remote test proxy that runs in the integration-tests phase.
@@ -482,6 +482,19 @@
           </plugins>
         </pluginManagement>
       </build>
+    </profile>
+
+    <!-- "Fast" profile for quick compile of the project without any unit tests etc. -->
+    <profile>
+      <id>fast</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <unittests.skip>true</unittests.skip>
+        <integrationtests.skip>true</integrationtests.skip>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+      </properties>
     </profile>
 
   </profiles>

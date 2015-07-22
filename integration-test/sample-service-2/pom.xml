@@ -19,33 +19,46 @@
   #L%
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>io.wcm.caravan</groupId>
-    <artifactId>io.wcm.caravan.parent_toplevel</artifactId>
-    <version>0.5.5-SNAPSHOT</version>
-    <relativePath/>
+    <artifactId>io.wcm.caravan.jaxrs.parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>../../parent/pom.xml</relativePath>
   </parent>
 
   <groupId>io.wcm.caravan</groupId>
-  <artifactId>io.wcm.caravan.jaxrs</artifactId>
-  <version>1</version>
-  <packaging>pom</packaging>
+  <artifactId>io.wcm.caravan.jaxrs.integration-test.sample-service-2</artifactId>
+  <version>1-SNAPSHOT</version>
+  <packaging>bundle</packaging>
 
-  <name>Caravan JAX-RS Root</name>
-  <description>JAX-RS integration for OSGi-based RESTful micro services.</description>
+  <name>JAX-RS Integration Test Sample Service 1</name>
 
-  <modules>
-    <module>parent</module>
-    <module>publisher</module>
-    <module>integration-test</module>
-  </modules>
+  <dependencies>
+
+    <dependency>
+      <groupId>io.wcm.caravan</groupId>
+      <artifactId>io.wcm.caravan.jaxrs.publisher</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+
+  </dependencies>
 
   <build>
     <plugins>
+
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-scr-plugin</artifactId>
+      </plugin>
 
       <!-- do not deploy this hierarchy pom into maven repository -->
       <plugin>
@@ -64,8 +77,8 @@
           <skipDeploy>true</skipDeploy>
         </configuration>
       </plugin>
-
+      
     </plugins>
   </build>
-
+  
 </project>
