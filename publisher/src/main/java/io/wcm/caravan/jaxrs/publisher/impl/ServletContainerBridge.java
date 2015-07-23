@@ -85,7 +85,7 @@ public class ServletContainerBridge extends HttpServlet {
     bundle = (Bundle)componentContext.getProperties().get(PROPERTY_BUNDLE);
     bundleContext = bundle.getBundleContext();
 
-    // initialize component tracker to detect non-global JAX-RS components in current bundle
+    // initialize component tracker to detect local and global JAX-RS components for current bundle
     localComponents = Sets.newConcurrentHashSet();
     globalComponents = Sets.newConcurrentHashSet();
     localComponentTracker = new JaxRsComponentTracker();
@@ -166,16 +166,16 @@ public class ServletContainerBridge extends HttpServlet {
       if (isJaxRsGlobal(reference)) {
         JaxRsComponent serviceInstance = bundle.getBundleContext().getService(reference);
         if (isJaxRsComponent(serviceInstance)) {
+          log.debug("Register global component {} for {}", serviceInstance.getClass().getName(), bundle.getSymbolicName());
           globalComponents.add(serviceInstance);
-          log.debug("Registered global component {} for {}", serviceInstance.getClass().getName(), bundle.getSymbolicName());
           isDirty = true;
         }
       }
       else if (reference.getBundle() == bundle) {
         JaxRsComponent serviceInstance = bundle.getBundleContext().getService(reference);
         if (isJaxRsComponent(serviceInstance)) {
+          log.debug("Register component {} for {}", serviceInstance.getClass().getName(), bundle.getSymbolicName());
           localComponents.add(serviceInstance);
-          log.debug("Registered component {} for {}", serviceInstance.getClass().getName(), bundle.getSymbolicName());
           isDirty = true;
         }
       }
@@ -187,18 +187,18 @@ public class ServletContainerBridge extends HttpServlet {
       if (isJaxRsGlobal(reference)) {
         JaxRsComponent serviceInstance = bundle.getBundleContext().getService(reference);
         if (isJaxRsComponent(serviceInstance)) {
+          log.debug("Unregister global component {} for {}", serviceInstance.getClass().getName(), bundle.getSymbolicName());
           globalComponents.remove(serviceInstance);
           bundleContext.ungetService(reference);
-          log.debug("Unregistered global component {} for {}", serviceInstance.getClass().getName(), bundle.getSymbolicName());
           isDirty = true;
         }
       }
       else if (reference.getBundle() == bundle) {
         JaxRsComponent serviceInstance = bundle.getBundleContext().getService(reference);
         if (isJaxRsComponent(serviceInstance)) {
+          log.debug("Unregister component {} for {}", serviceInstance.getClass().getName(), bundle.getSymbolicName());
           localComponents.remove(serviceInstance);
           bundleContext.ungetService(reference);
-          log.debug("Unregistered component {} for {}", serviceInstance.getClass().getName(), bundle.getSymbolicName());
           isDirty = true;
         }
       }
