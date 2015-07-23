@@ -47,9 +47,10 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.Constants;
+import org.osgi.framework.Filter;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
-import org.osgi.service.component.ComponentConstants;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.util.tracker.ServiceTracker;
 import org.slf4j.Logger;
@@ -91,14 +92,17 @@ public class ServletContainerBridge extends HttpServlet {
 
     // get global JAX-RS components - by using bundle context from target bundle to ensure bundle scope
     globalJaxRSComponentReferences = bundleContext.getServiceReferences(JaxRsComponent.class,
-        "(" + ComponentConstants.COMPONENT_FACTORY + "=" + JaxRsComponent.PROPERTY_GLOBAL_COMPONENT + ")");
+        "(&(" + JaxRsComponent.PROPERTY_GLOBAL_COMPONENT + "=true)"
+            + "(" + Constants.SERVICE_SCOPE + "=" + Constants.SCOPE_BUNDLE + "))");
     List<JaxRsComponent> globalJaxRsComponents = Streams.of(globalJaxRSComponentReferences)
         .map(bundleContext::getService)
         .collect(Collectors.toList());
 
-    // initialize component tracker to detect JAX-RS components in current bundle
+    // initialize component tracker to detect non-global JAX-RS components in current bundle
     localComponents = Sets.newConcurrentHashSet();
-    localComponentTracker = new JaxRsComponentTracker();
+    Filter filter = bundleContext.createFilter("(&(" + Constants.OBJECTCLASS + "=" + JaxRsComponent.class.getName() + ")"
+        + "(!(" + JaxRsComponent.PROPERTY_GLOBAL_COMPONENT + "=true)))");
+    localComponentTracker = new JaxRsComponentTracker(filter);
     localComponentTracker.open();
 
     // initialize JAX-RS application and Jersey Servlet container
@@ -167,8 +171,8 @@ public class ServletContainerBridge extends HttpServlet {
    */
   private class JaxRsComponentTracker extends ServiceTracker<JaxRsComponent, Object> {
 
-    public JaxRsComponentTracker() {
-      super(bundleContext, JaxRsComponent.class, null);
+    public JaxRsComponentTracker(Filter filter) {
+      super(bundleContext, filter, null);
     }
 
     @Override

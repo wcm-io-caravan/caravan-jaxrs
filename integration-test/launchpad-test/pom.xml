@@ -132,6 +132,12 @@
       <artifactId>io.wcm.caravan.jaxrs.integration-test.sample-service-2</artifactId>
       <version>1-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>io.wcm.caravan</groupId>
+      <artifactId>io.wcm.caravan.commons.stream</artifactId>
+      <version>0.5.1-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
 
     <dependency>
       <groupId>io.wcm.osgi.wrapper</groupId>
