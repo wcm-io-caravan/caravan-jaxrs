@@ -27,9 +27,10 @@ public interface JaxRsComponent {
   //CHECKSTYLE:ON
 
   /**
-   * OSGi factory name that marks a JaxRS component that is registered globally to all JAX-RS applications.
-   * It has to be implemented as OSGi component factory to ensure a new instance is provided for each context.
+   * OSGi property name that marks JaxRS components to be registered globally to all JAX-RS applications.
+   * The property value has to be set to "true".
+   * Such components have to be marked as "serviceFactory" as well to ensure bundle scope.
    */
-  String GLOBAL_COMPONENT_FACTORY = "caravan.jaxrs.global.factory";
+  String PROPERTY_GLOBAL_COMPONENT = "caravan.jaxrs.global";
 
 }

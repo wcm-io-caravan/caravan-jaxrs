@@ -28,14 +28,16 @@ import javax.ws.rs.Produces;
 
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Service;
 import org.osgi.service.component.ComponentContext;
 
 /**
  * Sample JAX-RS Service that is registered to all JAX-RS appliations in the OSGi container.
  */
-@Component(factory = JaxRsComponent.GLOBAL_COMPONENT_FACTORY)
-@Service(JaxRsComponent.class)
+@Component
+@Service(value = JaxRsComponent.class, serviceFactory = true)
+@Property(name = JaxRsComponent.PROPERTY_GLOBAL_COMPONENT, value = "true")
 @Path("/globalServiceId")
 public class JaxRsGlobalService implements JaxRsComponent {
 
