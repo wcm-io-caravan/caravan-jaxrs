@@ -19,7 +19,6 @@
  */
 package io.wcm.caravan.jaxrs.publisher;
 
-import org.apache.commons.lang3.StringUtils;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.ComponentContext;
@@ -65,14 +64,14 @@ public final class ApplicationPath {
   /**
    * Get JAX-RS application path for bundle of component context.
    * If the component context is from an "global" JAx-RS Component the application path for which the
-   * factory instance was created is returned.
+   * service instance was created is returned.
    * @param componentContext Component Context
    * @return Application path or null if not defined
    */
   public static String get(ComponentContext componentContext) {
-    String applicationPath = (String)componentContext.getProperties().get(PROPERTY_APPLICATON_PATH);
-    if (StringUtils.isNotBlank(applicationPath)) {
-      return applicationPath;
+    Bundle usingBundle = componentContext.getUsingBundle();
+    if (usingBundle != null) {
+      return get(usingBundle);
     }
     return get(componentContext.getBundleContext().getBundle());
   }

@@ -21,6 +21,7 @@ package io.wcm.caravan.jaxrs.publisher;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Dictionary;
@@ -39,6 +40,7 @@ import org.osgi.service.component.ComponentContext;
 public class ApplicationPathTest {
 
   private static final String TEST_PATH = "/test/path";
+  private static final String TEST_PATH_2 = "/test/path2";
 
   @Mock
   private Bundle bundle;
@@ -77,6 +79,17 @@ public class ApplicationPathTest {
   @Test
   public void testComponentContext() {
     assertEquals(TEST_PATH, ApplicationPath.get(componentContext));
+  }
+
+  @Test
+  public void testComponentContext_UsingBundle() {
+    Bundle usingBundle = mock(Bundle.class);
+    Dictionary<String, String> headers = new Hashtable<>();
+    headers.put(ApplicationPath.HEADER_APPLICATON_PATH, TEST_PATH_2);
+    when(usingBundle.getHeaders()).thenReturn(headers);
+
+    when(componentContext.getUsingBundle()).thenReturn(usingBundle);
+    assertEquals(TEST_PATH_2, ApplicationPath.get(componentContext));
   }
 
 }

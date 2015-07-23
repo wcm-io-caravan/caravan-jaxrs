@@ -17,20 +17,25 @@
  * limitations under the License.
  * #L%
  */
-package io.wcm.caravan.jaxrs.publisher;
+package io.wcm.caravan.jaxrs.publisher.it;
+
+import org.apache.sling.junit.annotations.SlingAnnotationsTestRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
- * Marker interface that have to implement all JAX-RS services and providers.
+ * Currently no tests inside the instances are required.
+ * To avoid complaints keep just one dummy test.
  */
-//CHECKSTYLE:OFF
-public interface JaxRsComponent {
-  //CHECKSTYLE:ON
+@RunWith(SlingAnnotationsTestRunner.class)
+public class DummyTest {
 
   /**
-   * OSGi property name that marks JaxRS components to be registered globally to all JAX-RS applications.
-   * The property value has to be set to "true".
-   * Such components have to be marked as "serviceFactory" as well to ensure bundle scope.
+   * Dummy test
    */
-  String PROPERTY_GLOBAL_COMPONENT = "caravan.jaxrs.global";
+  @Test
+  public void dummyTest() {
+    // test nothing
+  }
 
 }

@@ -25,23 +25,23 @@
 
   <parent>
     <groupId>io.wcm.caravan</groupId>
-    <artifactId>io.wcm.caravan.parent_toplevel</artifactId>
-    <version>1.0.0</version>
-    <relativePath/>
+    <artifactId>io.wcm.caravan.jaxrs.parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>../parent/pom.xml</relativePath>
   </parent>
 
   <groupId>io.wcm.caravan</groupId>
-  <artifactId>io.wcm.caravan.jaxrs</artifactId>
-  <version>1</version>
+  <artifactId>io.wcm.caravan.jaxrs.integration-test</artifactId>
+  <version>1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>Caravan JAX-RS Root</name>
-  <description>JAX-RS integration for OSGi-based RESTful micro services.</description>
+  <name>JAX-RS Integration Test</name>
 
   <modules>
-    <module>parent</module>
-    <module>publisher</module>
-    <module>integration-test</module>
+    <module>sample-service-1</module>
+    <module>sample-service-2</module>
+    <module>launchpad</module>
+    <module>launchpad-test</module>
   </modules>
 
   <build>
