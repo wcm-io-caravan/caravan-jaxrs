@@ -132,48 +132,6 @@
       <artifactId>io.wcm.caravan.jaxrs.integration-test.sample-service-2</artifactId>
       <version>1-SNAPSHOT</version>
     </dependency>
-    <dependency>
-      <groupId>io.wcm.caravan</groupId>
-      <artifactId>io.wcm.caravan.commons.stream</artifactId>
-      <version>0.5.1-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>io.wcm.osgi.wrapper</groupId>
-      <artifactId>io.wcm.osgi.wrapper.jersey</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.wcm.osgi.wrapper</groupId>
-      <artifactId>io.wcm.osgi.wrapper.hibernate-validator</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>javax.ws.rs-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.annotation</groupId>
-      <artifactId>javax.annotation-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.validation</groupId>
-      <artifactId>validation-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
 
     <!-- sling testing tools bundles requires httpclient -->
     <dependency>
@@ -194,9 +152,9 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.sling</groupId>
-      <artifactId>org.apache.sling.launchpad</artifactId>
-      <version>8-SNAPSHOT</version>
+      <groupId>io.wcm.caravan</groupId>
+      <artifactId>io.wcm.caravan.jaxrs.integration-test.launchpad</artifactId>
+      <version>1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -309,7 +267,7 @@
             </goals>
             <phase>process-resources</phase>
             <configuration>
-              <includeArtifactIds>org.apache.sling.launchpad</includeArtifactIds>
+              <includeArtifactIds>io.wcm.caravan.jaxrs.integration-test.launchpad</includeArtifactIds>
               <excludeTransitive>true</excludeTransitive>
               <overWriteReleases>false</overWriteReleases>
               <overWriteSnapshots>false</overWriteSnapshots>
@@ -385,16 +343,14 @@
             <jar.executor.server.port>${http.port}</jar.executor.server.port>
             <jar.executor.vm.options>${jar.executor.vm.options}</jar.executor.vm.options>
             <jar.executor.jar.folder>${project.basedir}/target/dependency</jar.executor.jar.folder>
-            <jar.executor.jar.name.regexp>org.apache.sling.launchpad.*jar$</jar.executor.jar.name.regexp>
+            <jar.executor.jar.name.regexp>io.wcm.caravan.jaxrs.integration-test.launchpad.*jar$</jar.executor.jar.name.regexp>
             <jar.executor.work.folder>${jar.executor.work.folder}</jar.executor.work.folder>
             <jar.executor.jar.options>${jar.executor.jar.options}</jar.executor.jar.options>
             <additional.bundles.path>${project.basedir}/target,${project.basedir}/target/sling/additional-bundles</additional.bundles.path>
             <keepJarRunning>${keepJarRunning}</keepJarRunning>
             <server.ready.timeout.seconds>60</server.ready.timeout.seconds>
             <sling.testing.timeout.multiplier>${sling.testing.timeout.multiplier}</sling.testing.timeout.multiplier>
-            <server.ready.path.1>/:script src="system/sling.js"</server.ready.path.1>
-            <server.ready.path.2>/.explorer.html:href="/libs/sling/explorer/css/explorer.css"</server.ready.path.2>
-            <server.ready.path.3>/sling-test/sling/sling-test.html:Sling client library tests</server.ready.path.3>
+            <server.ready.path.1>/hal:The HAL Browser</server.ready.path.1>
             <start.bundles.timeout.seconds>30</start.bundles.timeout.seconds>
             <bundle.install.timeout.seconds>20</bundle.install.timeout.seconds>
             <!-- 
@@ -403,18 +359,10 @@
             All bundles must be listed as dependencies in this pom, or they won't be installed. 
             -->
             <sling.additional.bundle.01>org.apache.sling.junit.core</sling.additional.bundle.01>
-            <sling.additional.bundle.10>guava</sling.additional.bundle.10>
-            <sling.additional.bundle.11>javax.ws.rs-api</sling.additional.bundle.11>
-            <sling.additional.bundle.12>commons-lang3</sling.additional.bundle.12>
-            <sling.additional.bundle.13>javax.annotation-api</sling.additional.bundle.13>
-            <sling.additional.bundle.14>validation-api</sling.additional.bundle.14>
-            <sling.additional.bundle.15>io.wcm.osgi.wrapper.hibernate-validator</sling.additional.bundle.15>
-            <sling.additional.bundle.16>io.wcm.osgi.wrapper.jersey</sling.additional.bundle.16>
-            <sling.additional.bundle.20>io.wcm.caravan.commons.stream</sling.additional.bundle.20>
-            <sling.additional.bundle.21>io.wcm.caravan.jaxrs.publisher</sling.additional.bundle.21>
-            <sling.additional.bundle.22>io.wcm.caravan.jaxrs.integration-test.sample-service-1</sling.additional.bundle.22>
-            <sling.additional.bundle.23>io.wcm.caravan.jaxrs.integration-test.sample-service-2</sling.additional.bundle.23>
-            <sling.additional.bundle.30>${project.build.finalName}.jar</sling.additional.bundle.30>
+            <sling.additional.bundle.10>io.wcm.caravan.jaxrs.publisher</sling.additional.bundle.10>
+            <sling.additional.bundle.11>io.wcm.caravan.jaxrs.integration-test.sample-service-1</sling.additional.bundle.11>
+            <sling.additional.bundle.12>io.wcm.caravan.jaxrs.integration-test.sample-service-2</sling.additional.bundle.12>
+            <sling.additional.bundle.20>${project.build.finalName}.jar</sling.additional.bundle.20>
           </systemPropertyVariables>
         </configuration>
       </plugin>
