@@ -49,6 +49,13 @@
   </properties>
 
   <dependencies>
+  
+    <dependency>
+      <groupId>io.wcm.caravan</groupId>
+      <artifactId>io.wcm.caravan.commons.stream</artifactId>
+      <version>0.5.1-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
 
     <!-- OSGi -->
     <dependency>

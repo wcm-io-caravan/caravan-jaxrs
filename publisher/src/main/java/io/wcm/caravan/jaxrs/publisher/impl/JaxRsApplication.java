@@ -19,7 +19,9 @@
  */
 package io.wcm.caravan.jaxrs.publisher.impl;
 
-import java.util.Collection;
+import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
+
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -46,9 +48,9 @@ class JaxRsApplication extends Application {
       .build();
 
   private final Set<Object> localComponents;
-  private final Collection<Object> globalComponents;
+  private final List<JaxRsComponent> globalComponents;
 
-  public JaxRsApplication(Set<Object> localComponents, Collection<Object> globalComponents) {
+  public JaxRsApplication(Set<Object> localComponents, List<JaxRsComponent> globalComponents) {
     this.localComponents = localComponents;
     this.globalComponents = globalComponents;
   }

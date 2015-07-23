@@ -404,9 +404,10 @@
             <sling.additional.bundle.14>validation-api</sling.additional.bundle.14>
             <sling.additional.bundle.15>io.wcm.osgi.wrapper.hibernate-validator</sling.additional.bundle.15>
             <sling.additional.bundle.16>io.wcm.osgi.wrapper.jersey</sling.additional.bundle.16>
-            <sling.additional.bundle.20>io.wcm.caravan.jaxrs.publisher</sling.additional.bundle.20>
-            <sling.additional.bundle.21>io.wcm.caravan.jaxrs.integration-test.sample-service-1</sling.additional.bundle.21>
-            <sling.additional.bundle.22>io.wcm.caravan.jaxrs.integration-test.sample-service-2</sling.additional.bundle.22>
+            <sling.additional.bundle.20>io.wcm.caravan.commons.stream</sling.additional.bundle.20>
+            <sling.additional.bundle.21>io.wcm.caravan.jaxrs.publisher</sling.additional.bundle.21>
+            <sling.additional.bundle.22>io.wcm.caravan.jaxrs.integration-test.sample-service-1</sling.additional.bundle.22>
+            <sling.additional.bundle.23>io.wcm.caravan.jaxrs.integration-test.sample-service-2</sling.additional.bundle.23>
             <sling.additional.bundle.30>${project.build.finalName}.jar</sling.additional.bundle.30>
           </systemPropertyVariables>
         </configuration>
