@@ -19,13 +19,11 @@
  */
 package io.wcm.caravan.jaxrs.publisher.impl;
 
-import io.wcm.caravan.commons.stream.Collectors;
 import io.wcm.caravan.commons.stream.Streams;
 import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.Servlet;
@@ -42,14 +40,11 @@ import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Deactivate;
 import org.apache.felix.scr.annotations.Service;
-import org.apache.sling.commons.osgi.PropertiesUtil;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
-import org.osgi.framework.Filter;
-import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.util.tracker.ServiceTracker;
@@ -71,42 +66,33 @@ public class ServletContainerBridge extends HttpServlet {
 
   static final String SERVLETCONTAINER_BRIDGE_FACTORY = "caravan.jaxrs.servletcontainer.bridge.factory";
   static final String PROPERTY_BUNDLE = "caravan.jaxrs.relatedBundle";
-  static final String PROPERTY_GLOBAL_COMPONENT = "caravan.jaxrs.globalComponent";
 
   private BundleContext bundleContext;
   private Bundle bundle;
   private JaxRsApplication application;
   private ServletContainer servletContainer;
   private volatile boolean isDirty;
-  private Set<Object> localComponents;
+  private Set<JaxRsComponent> localComponents;
+  private Set<JaxRsComponent> globalComponents;
   private ServiceTracker localComponentTracker;
   private Collection<ServiceReference<JaxRsComponent>> globalJaxRSComponentReferences;
 
   private static final Logger log = LoggerFactory.getLogger(ServletContainerBridge.class);
 
   @Activate
-  void activate(ComponentContext componentContext) throws InvalidSyntaxException {
+  void activate(ComponentContext componentContext) {
     // bundle which contains the JAX-RS services
     bundle = (Bundle)componentContext.getProperties().get(PROPERTY_BUNDLE);
     bundleContext = bundle.getBundleContext();
 
-    // get global JAX-RS components - by using bundle context from target bundle to ensure bundle scope
-    globalJaxRSComponentReferences = bundleContext.getServiceReferences(JaxRsComponent.class,
-        "(&(" + JaxRsComponent.PROPERTY_GLOBAL_COMPONENT + "=true)"
-            + "(" + Constants.SERVICE_SCOPE + "=" + Constants.SCOPE_BUNDLE + "))");
-    List<JaxRsComponent> globalJaxRsComponents = Streams.of(globalJaxRSComponentReferences)
-        .map(bundleContext::getService)
-        .collect(Collectors.toList());
-
     // initialize component tracker to detect non-global JAX-RS components in current bundle
     localComponents = Sets.newConcurrentHashSet();
-    Filter filter = bundleContext.createFilter("(&(" + Constants.OBJECTCLASS + "=" + JaxRsComponent.class.getName() + ")"
-        + "(!(" + JaxRsComponent.PROPERTY_GLOBAL_COMPONENT + "=true)))");
-    localComponentTracker = new JaxRsComponentTracker(filter);
+    globalComponents = Sets.newConcurrentHashSet();
+    localComponentTracker = new JaxRsComponentTracker();
     localComponentTracker.open();
 
     // initialize JAX-RS application and Jersey Servlet container
-    application = new JaxRsApplication(localComponents, globalJaxRsComponents);
+    application = new JaxRsApplication(localComponents, globalComponents);
     servletContainer = new ServletContainer(ResourceConfig.forApplication(application));
   }
 
@@ -171,13 +157,21 @@ public class ServletContainerBridge extends HttpServlet {
    */
   private class JaxRsComponentTracker extends ServiceTracker<JaxRsComponent, Object> {
 
-    public JaxRsComponentTracker(Filter filter) {
-      super(bundleContext, filter, null);
+    public JaxRsComponentTracker() {
+      super(bundleContext, JaxRsComponent.class, null);
     }
 
     @Override
     public Object addingService(ServiceReference<JaxRsComponent> reference) {
-      if (reference.getBundle() == bundle && !isGlobalComponentFactory(reference)) {
+      if (isJaxRsGlobal(reference)) {
+        JaxRsComponent serviceInstance = bundle.getBundleContext().getService(reference);
+        if (isJaxRsComponent(serviceInstance)) {
+          globalComponents.add(serviceInstance);
+          log.debug("Registered global component {} for {}", serviceInstance.getClass().getName(), bundle.getSymbolicName());
+          isDirty = true;
+        }
+      }
+      else if (reference.getBundle() == bundle) {
         JaxRsComponent serviceInstance = bundle.getBundleContext().getService(reference);
         if (isJaxRsComponent(serviceInstance)) {
           localComponents.add(serviceInstance);
@@ -190,7 +184,16 @@ public class ServletContainerBridge extends HttpServlet {
 
     @Override
     public void removedService(ServiceReference<JaxRsComponent> reference, Object service) {
-      if (reference.getBundle() == bundle && !isGlobalComponentFactory(reference)) {
+      if (isJaxRsGlobal(reference)) {
+        JaxRsComponent serviceInstance = bundle.getBundleContext().getService(reference);
+        if (isJaxRsComponent(serviceInstance)) {
+          globalComponents.remove(serviceInstance);
+          bundleContext.ungetService(reference);
+          log.debug("Unregistered global component {} for {}", serviceInstance.getClass().getName(), bundle.getSymbolicName());
+          isDirty = true;
+        }
+      }
+      else if (reference.getBundle() == bundle) {
         JaxRsComponent serviceInstance = bundle.getBundleContext().getService(reference);
         if (isJaxRsComponent(serviceInstance)) {
           localComponents.remove(serviceInstance);
@@ -202,6 +205,11 @@ public class ServletContainerBridge extends HttpServlet {
       super.removedService(reference, service);
     }
 
+    private boolean isJaxRsGlobal(ServiceReference<JaxRsComponent> serviceReference) {
+      return "true".equals(serviceReference.getProperty(JaxRsComponent.PROPERTY_GLOBAL_COMPONENT))
+          && Constants.SCOPE_BUNDLE.equals(serviceReference.getProperty(Constants.SERVICE_SCOPE));
+    }
+
     private boolean isJaxRsComponent(Object serviceInstance) {
       return (serviceInstance instanceof JaxRsComponent && hasAnyJaxRsAnnotation(serviceInstance.getClass()));
     }
@@ -210,10 +218,6 @@ public class ServletContainerBridge extends HttpServlet {
       return clazz.isAnnotationPresent(Path.class)
           || clazz.isAnnotationPresent(Provider.class)
           || clazz.isAnnotationPresent(PreMatching.class);
-    }
-
-    private boolean isGlobalComponentFactory(ServiceReference serviceReference) {
-      return PropertiesUtil.toBoolean(serviceReference.getProperty(PROPERTY_GLOBAL_COMPONENT), false);
     }
 
   }

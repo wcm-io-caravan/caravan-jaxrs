@@ -21,7 +21,6 @@ package io.wcm.caravan.jaxrs.publisher.impl;
 
 import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -30,7 +29,6 @@ import javax.ws.rs.core.Application;
 import org.glassfish.jersey.server.ServerProperties;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
 /**
@@ -47,17 +45,17 @@ class JaxRsApplication extends Application {
       .put(ServerProperties.WADL_FEATURE_DISABLE, true)
       .build();
 
-  private final Set<Object> localComponents;
-  private final List<JaxRsComponent> globalComponents;
+  private final Set<JaxRsComponent> localComponents;
+  private final Set<JaxRsComponent> globalComponents;
 
-  public JaxRsApplication(Set<Object> localComponents, List<JaxRsComponent> globalComponents) {
+  public JaxRsApplication(Set<JaxRsComponent> localComponents, Set<JaxRsComponent> globalComponents) {
     this.localComponents = localComponents;
     this.globalComponents = globalComponents;
   }
 
   @Override
   public Set<Object> getSingletons() {
-    return Sets.union(ImmutableSet.copyOf(globalComponents), localComponents);
+    return Sets.union(globalComponents, localComponents);
   }
 
   @Override
