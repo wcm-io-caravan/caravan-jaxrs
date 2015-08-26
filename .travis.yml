@@ -32,7 +32,7 @@ script:
 # Print output of integration test log
 - cat integration-test/launchpad-test/sling/logs/error.log
 # Print dependencies
--  mvn -f integration-test/launchpad/pom.xml dependency:tree
+- "mvn -s ./.travis.maven-settings.xml -f integration-test/launchpad/pom.xml dependency:tree"
 # Remove wcm.io artefacts from repository before cache
 - rm -rf $HOME/.m2/repository/io/wcm
 
