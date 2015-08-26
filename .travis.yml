@@ -29,6 +29,8 @@ install: "mvn -s ./.travis.maven-settings.xml clean"
 
 script:
 - "mvn -s ./.travis.maven-settings.xml -Pcontinuous-integration -U -Dmaven.javadoc.skip=true install"
+# Print output of integration test log
+- cat integration-test/launchpad-test/sling/logs/error.log
 # Remove wcm.io artefacts from repository before cache
 - rm -rf $HOME/.m2/repository/io/wcm
 
