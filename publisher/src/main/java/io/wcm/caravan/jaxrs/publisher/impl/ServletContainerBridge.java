@@ -50,7 +50,6 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Sets;
 
-import io.wcm.caravan.commons.stream.Streams;
 import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
 
 /**
@@ -102,7 +101,7 @@ public class ServletContainerBridge extends HttpServlet {
       localComponentTracker.close();
     }
     if (globalJaxRSComponentReferences != null) {
-      Streams.of(globalJaxRSComponentReferences).forEach(bundleContext::ungetService);
+      globalJaxRSComponentReferences.forEach(bundleContext::ungetService);
     }
   }
 
