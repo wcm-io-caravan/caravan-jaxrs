@@ -19,8 +19,6 @@
  */
 package io.wcm.caravan.jaxrs.publisher.impl;
 
-import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
-
 import java.util.Map;
 import java.util.Set;
 
@@ -30,6 +28,8 @@ import org.glassfish.jersey.server.ServerProperties;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
+
+import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
 
 /**
  * Minimal JAX-RS application registering all JAX-RS OSGi components as singletons.
@@ -48,7 +48,7 @@ class JaxRsApplication extends Application {
   private final Set<JaxRsComponent> localComponents;
   private final Set<JaxRsComponent> globalComponents;
 
-  public JaxRsApplication(Set<JaxRsComponent> localComponents, Set<JaxRsComponent> globalComponents) {
+  JaxRsApplication(Set<JaxRsComponent> localComponents, Set<JaxRsComponent> globalComponents) {
     this.localComponents = localComponents;
     this.globalComponents = globalComponents;
   }
