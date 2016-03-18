@@ -19,9 +19,6 @@
  */
 package io.wcm.caravan.jaxrs.publisher.impl;
 
-import io.wcm.caravan.commons.stream.Streams;
-import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Set;
@@ -52,6 +49,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Sets;
+
+import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
 
 /**
  * Servlet bridge that wraps a Jersy JAX-RS ServletContainer and ensures the JAX-RS context is reloaded
@@ -102,7 +101,7 @@ public class ServletContainerBridge extends HttpServlet {
       localComponentTracker.close();
     }
     if (globalJaxRSComponentReferences != null) {
-      Streams.of(globalJaxRSComponentReferences).forEach(bundleContext::ungetService);
+      globalJaxRSComponentReferences.forEach(bundleContext::ungetService);
     }
   }
 
@@ -157,7 +156,7 @@ public class ServletContainerBridge extends HttpServlet {
    */
   private class JaxRsComponentTracker extends ServiceTracker<JaxRsComponent, Object> {
 
-    public JaxRsComponentTracker() {
+    JaxRsComponentTracker() {
       super(bundleContext, JaxRsComponent.class, null);
     }
 

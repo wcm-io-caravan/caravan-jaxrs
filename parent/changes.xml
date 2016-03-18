@@ -23,6 +23,18 @@
     xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
   <body>
 
+    <release version="1.1.0" date="2016-03-18">
+      <action type="update" dev="sseifert">
+        Switch to Java 8.
+      </action>
+    </release>
+
+    <release version="1.0.2" date="not released">
+      <action type="add" dev="sseifert">
+        Update parent_toplevel dependency.
+      </action>
+    </release>
+
     <release version="1.0.0" date="2014-07-24">
       <action type="add" dev="sseifert">
         Initial release.
