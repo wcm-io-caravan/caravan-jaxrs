@@ -50,7 +50,7 @@
     <dependency>
       <groupId>io.wcm.caravan</groupId>
       <artifactId>io.wcm.caravan.integration-test.minimal-launchpad</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>1.0.0</version>
       <type>slingfeature</type>
       <scope>provided</scope>
     </dependency>
@@ -75,7 +75,7 @@
       <plugin>
         <groupId>org.apache.sling</groupId>
         <artifactId>slingstart-maven-plugin</artifactId>
-        <version>1.3.0</version>
+        <version>1.4.2</version>
         <extensions>true</extensions>
         <configuration>
           <usePomDependencies>true</usePomDependencies>
