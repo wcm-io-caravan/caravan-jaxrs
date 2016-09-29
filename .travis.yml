@@ -51,7 +51,3 @@ cache:
 #      - wcm-io-dev@googlegroups.com
 #    on_success: change
 #    on_failure: always
-
-# codecov.io integration
-after_success:
-- bash <(curl -s https://codecov.io/bash)
