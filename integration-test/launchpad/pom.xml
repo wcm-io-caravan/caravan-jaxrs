@@ -75,7 +75,7 @@
       <plugin>
         <groupId>org.apache.sling</groupId>
         <artifactId>slingstart-maven-plugin</artifactId>
-        <version>1.4.2</version>
+        <version>1.6.0</version>
         <extensions>true</extensions>
         <configuration>
           <usePomDependencies>true</usePomDependencies>
