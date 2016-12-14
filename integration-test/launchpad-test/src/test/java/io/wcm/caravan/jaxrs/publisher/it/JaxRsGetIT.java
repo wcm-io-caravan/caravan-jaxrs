@@ -33,7 +33,7 @@ import org.junit.Test;
 
 public class JaxRsGetIT {
 
-  private static final String SERVER_URL = "http://localhost:" + System.getProperty("jar.executor.server.port");
+  private static final String SERVER_URL = System.getProperty("launchpad.http.server.url");
 
   @Test
   public void testSampleService1NotFound() throws IOException {

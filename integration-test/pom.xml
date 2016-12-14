@@ -40,7 +40,6 @@
   <modules>
     <module>sample-service-1</module>
     <module>sample-service-2</module>
-    <module>launchpad</module>
     <module>launchpad-test</module>
   </modules>
 
