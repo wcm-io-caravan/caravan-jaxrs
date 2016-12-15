@@ -112,7 +112,7 @@
     <dependency>
       <groupId>io.wcm.caravan</groupId>
       <artifactId>io.wcm.caravan.integration-test.minimal-launchpad</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1-SNAPSHOT</version>
       <type>slingfeature</type>
       <scope>provided</scope>
     </dependency>
@@ -233,14 +233,6 @@
             </server>
           </servers>
         </configuration>
-        <dependencies>
-          <!-- Switch back to old configadmin style to produce old configuration format -->
-          <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.configadmin</artifactId>
-            <version>1.8.4</version>
-          </dependency>
-        </dependencies>
       </plugin>
 
       <!-- do not deploy this hierarchy pom into maven repository -->
