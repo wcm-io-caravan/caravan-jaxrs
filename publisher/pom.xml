@@ -36,6 +36,7 @@
 
   <name>JAX-RS Publisher</name>
   <description>Publishes OSGi services as JAX-RS RESTful services.</description>
+  <url>${site.url}/${site.url.module.prefix}/</url>
 
   <scm>
     <connection>scm:git:https://github.com/wcm-io-caravan/caravan-jaxrs.git</connection>
