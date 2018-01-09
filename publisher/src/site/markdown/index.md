@@ -12,11 +12,6 @@ Publishes OSGi services as JAX-RS RESTful services.
 * [Changelog][changelog]
 
 
-[usage]: usage.html
-[apidocs]: apidocs/
-[changelog]: changes-report.html
-
-
 ### Overview
 
 Provides a [JAX-RS](https://jsr311.java.net/) integration based on [Jersey](https://jersey.java.net/) with OSGi. The implementation uses an OSGI Extender pattern.
@@ -27,7 +22,7 @@ This connector only support publishing REST interfaces via JAX-RS. Consuming the
 
 Dependencies:
 
-* Jersey has to be deployed as additional bundle, wcm.io provides a wrapped version: http://repo1.maven.org/maven2/io/wcm/osgi/wrapper/io.wcm.osgi.wrapper.jersey/
+* Jersey and some additional bundles are requires, see [this example][aem-caravan-jaxrs-sample] for details
 
 
 ### Alternatives
@@ -35,3 +30,10 @@ Dependencies:
 * [Aries JAX-RS Whiteboard](https://github.com/apache/aries-jax-rs-whiteboard) - Implementation of [OSGI RFC-217](https://github.com/osgi/design/tree/master/rfcs/rfc0217).
 * [OSGi JAX-RS Connector](https://github.com/hstaudacher/osgi-jax-rs-connector) - basically similar concept as the Caravan JAX-RS integrations, but creates always one single big Jersey Application for all bundles which breaks isolation between the bundles e.g. concerning @Provider JAX-RS components. Besides this the implementation is very stable and well maintained, and does not only support publishing but also consuming JAX-RS services within OSGi. This comes at a price of a quite complex implementation and a lot of dependencies.
 * [JAX-RS Extender Bundle for OSGi](https://github.com/njbartlett/jaxrs-osgi-extender) - quite old implementation based on the OSGi extender pattern. Builds one JAX-RS Application per module, but the JAX-RS components are not OSGi components, so OSGI dependency injection is not possible.
+
+
+
+[usage]: usage.html
+[apidocs]: apidocs/
+[changelog]: changes-report.html
+[aem-caravan-jaxrs-sample]: https://github.com/wcm-io-caravan/caravan-jaxrs/tree/develop/examples/aem-caravan-jaxrs-sample
