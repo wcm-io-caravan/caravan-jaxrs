@@ -32,7 +32,7 @@ import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
  */
 @Component(service = JaxRsComponent.class, immediate = true)
 @Path("/hello")
-public class JaxRsService implements JaxRsComponent {
+public class HelloWorldService implements JaxRsComponent {
 
   /**
    * Returns service id detected from OSGi component context
