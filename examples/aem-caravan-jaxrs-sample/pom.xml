@@ -3,7 +3,7 @@
   #%L
   wcm.io
   %%
-  Copyright (C) 2015 wcm.io
+  Copyright (C) 2018 wcm.io
   %%
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -19,31 +19,20 @@
   #L%
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.wcm.caravan</groupId>
-    <artifactId>io.wcm.caravan.jaxrs.parent</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <groupId>io.wcm.caravan.samples</groupId>
+    <artifactId>io.wcm.caravan.samples.aem-caravan-jaxrs-sample.parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <relativePath>parent/pom.xml</relativePath>
   </parent>
 
-  <groupId>io.wcm.caravan</groupId>
-  <artifactId>io.wcm.caravan.jaxrs</artifactId>
-  <version>1</version>
+  <groupId>io.wcm.caravan.samples</groupId>
+  <artifactId>io.wcm.caravan.samples.aem-caravan-jaxrs-sample</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
-
-  <name>Caravan JAX-RS Root</name>
-  <description>JAX-RS integration for OSGi-based RESTful micro services.</description>
-
-  <modules>
-    <module>parent</module>
-    <module>publisher</module>
-    <module>integration-test</module>
-    <module>examples/aem-caravan-jaxrs-sample</module>
-  </modules>
 
   <build>
     <plugins>
@@ -57,16 +46,14 @@
         </configuration>
       </plugin>
 
-      <!-- do not generate site for this project -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-        <configuration>
-          <skipDeploy>true</skipDeploy>
-        </configuration>
-      </plugin>
-
     </plugins>
   </build>
+
+  <modules>
+    <module>parent</module>
+    <module>bundles/core</module>
+    <module>content-packages/complete</module>
+    <module>config-definition</module>
+  </modules>
 
 </project>

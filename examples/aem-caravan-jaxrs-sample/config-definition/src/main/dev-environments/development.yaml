@@ -1,0 +1,14 @@
+# AEM configuration for local development environment
+
+nodes:
+
+- node: aem-author
+  roles:
+  - role: aem-caravan-jaxrs-sample-aem-cms
+
+- node: aem-publish
+  roles:
+  - role: aem-caravan-jaxrs-sample-aem-cms
+
+config:
+  contentPackage.group: wcm-io-samples

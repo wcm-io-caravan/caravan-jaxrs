@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  wcm.io
+  %%
+  Copyright (C) 2018 wcm.io
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.wcm.caravan.samples</groupId>
+    <artifactId>io.wcm.caravan.samples.aem-caravan-jaxrs-sample.parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>../../parent/pom.xml</relativePath>
+  </parent>
+
+  <groupId>io.wcm.caravan.samples</groupId>
+  <artifactId>io.wcm.caravan.samples.aem-caravan-jaxrs-sample.complete</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>content-package</packaging>
+
+  <name>aem-caravan-jaxrs-sample Application</name>
+  <description>AEM content package with all application bundles and dependencies.</description>
+
+  <properties>
+    <contentPackage.name>aem-caravan-jaxrs-sample-complete</contentPackage.name>
+    <contentPackage.group>wcm-io-samples</contentPackage.group>
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>io.wcm.caravan.samples</groupId>
+      <artifactId>io.wcm.caravan.samples.aem-caravan-jaxrs-sample.core</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>io.wcm.osgi.wrapper</groupId>
+      <artifactId>io.wcm.osgi.wrapper.jersey</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.wcm.osgi.wrapper</groupId>
+      <artifactId>io.wcm.osgi.wrapper.hibernate-validator</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <scope>compile</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <finalName>${contentPackage.name}-${project.version}</finalName>
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.jackrabbit</groupId>
+        <artifactId>filevault-package-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <name>${contentPackage.name}</name>
+          <group>${contentPackage.group}</group>
+          <packageType>container</packageType>
+
+          <filters>
+            <filter>
+              <root>/apps/${contentPackage.name}</root>
+            </filter>
+          </filters>
+
+          <embeddedTarget>/apps/${contentPackage.name}/install</embeddedTarget>
+          <embeddeds>
+            <embedded>
+              <groupId>
+                javax.ws.rs,
+                javax.annotation,
+                javax.validation,
+                io.wcm.osgi.wrapper,
+                io.wcm.caravan,
+                io.wcm.caravan.samples
+              </groupId>
+            </embedded>
+          </embeddeds>
+
+        </configuration>
+      </plugin>
+
+      <!-- Do not generate eclipse project files -->
+      <plugin>
+        <groupId>io.wcm.devops.maven.plugins</groupId>
+        <artifactId>eclipse-maven-plugin</artifactId>
+        <inherited>true</inherited>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+
+      <!-- Do not deploy sources to repository -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <configuration>
+          <attach>false</attach>
+        </configuration>
+      </plugin>
+
+    </plugins>
+
+  </build>
+</project>

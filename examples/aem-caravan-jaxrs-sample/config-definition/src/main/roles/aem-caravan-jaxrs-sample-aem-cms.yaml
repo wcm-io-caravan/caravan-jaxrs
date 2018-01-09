@@ -1,0 +1,16 @@
+# Project-specific AEM configuration
+
+templateDir: aem-caravan-jaxrs-sample-aem-cms
+
+files:
+
+# Application package
+- url: mvn:io.wcm.caravan.samples/io.wcm.caravan.samples.aem-caravan-jaxrs-sample.complete//zip
+  dir: packages
+
+
+# Defines configuration parameters and default values
+config:
+  contentPackage:
+    group: wcm-io-samples
+    version: ${version}
