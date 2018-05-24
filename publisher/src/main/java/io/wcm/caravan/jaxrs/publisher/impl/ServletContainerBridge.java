@@ -24,7 +24,6 @@ import java.util.Collection;
 import java.util.Set;
 
 import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -89,10 +88,6 @@ public class ServletContainerBridge extends HttpServlet {
     globalComponents = Sets.newConcurrentHashSet();
     localComponentTracker = new JaxRsComponentTracker();
     localComponentTracker.open();
-
-    // initialize JAX-RS application and Jersey Servlet container
-    application = new JaxRsApplication(localComponents, globalComponents);
-    servletContainer = new ServletContainer(ResourceConfig.forApplication(application));
   }
 
   @Deactivate
@@ -114,12 +109,10 @@ public class ServletContainerBridge extends HttpServlet {
 
   @Override
   public void init() throws ServletException {
-    servletContainer.init();
-  }
-
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    servletContainer.init(config);
+    // initialize JAX-RS application and Jersey Servlet container
+    application = new JaxRsApplication(localComponents, globalComponents);
+    servletContainer = new ServletContainer(ResourceConfig.forApplication(application));
+    servletContainer.init(getServletConfig());
   }
 
   @Override
