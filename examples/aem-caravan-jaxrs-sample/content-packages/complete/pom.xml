@@ -105,7 +105,12 @@
                 javax.ws.rs,
                 javax.annotation,
                 javax.validation,
-                io.wcm.osgi.wrapper,
+                io.wcm.osgi.wrapper
+              </groupId>
+              <target>/apps/${contentPackage.name}/install/15</target>
+            </embedded>
+            <embedded>
+              <groupId>
                 io.wcm.caravan,
                 io.wcm.caravan.samples
               </groupId>
