@@ -68,7 +68,7 @@
       <dependency>
         <groupId>io.wcm.caravan</groupId>
         <artifactId>io.wcm.caravan.jaxrs.publisher</artifactId>
-        <version>1.1.0</version>
+        <version>1.1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>io.wcm.osgi.wrapper</groupId>
