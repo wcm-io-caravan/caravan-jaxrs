@@ -8,10 +8,12 @@
 [artifacts startLevel=15]
   io.wcm.osgi.wrapper/io.wcm.osgi.wrapper.jersey
   io.wcm.osgi.wrapper/io.wcm.osgi.wrapper.hibernate-validator
-  org.apache.sling/org.apache.sling.junit.core
-  org.apache.sling/org.apache.sling.testing.tools
+  javax.ws.rs/javax.ws.rs-api
+  javax.annotation/javax.annotation-api
+
+[artifacts startLevel=20]
   io.wcm.caravan/io.wcm.caravan.jaxrs.publisher
   io.wcm.caravan/io.wcm.caravan.jaxrs.integration-test.sample-service-1
   io.wcm.caravan/io.wcm.caravan.jaxrs.integration-test.sample-service-2
-  javax.ws.rs/javax.ws.rs-api
-  javax.annotation/javax.annotation-api
+  org.apache.sling/org.apache.sling.junit.core
+  org.apache.sling/org.apache.sling.testing.tools
