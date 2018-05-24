@@ -13,3 +13,5 @@
   io.wcm.caravan/io.wcm.caravan.jaxrs.publisher
   io.wcm.caravan/io.wcm.caravan.jaxrs.integration-test.sample-service-1
   io.wcm.caravan/io.wcm.caravan.jaxrs.integration-test.sample-service-2
+  javax.ws.rs/javax.ws.rs-api
+  javax.annotation/javax.annotation-api
