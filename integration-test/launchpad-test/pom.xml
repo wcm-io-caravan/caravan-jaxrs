@@ -119,13 +119,13 @@
     <dependency>
       <groupId>io.wcm.osgi.wrapper</groupId>
       <artifactId>io.wcm.osgi.wrapper.jersey</artifactId>
-      <version>2.27-0000-SNAPSHOT</version>
+      <version>2.27-0000</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>io.wcm.osgi.wrapper</groupId>
       <artifactId>io.wcm.osgi.wrapper.hibernate-validator</artifactId>
-      <version>5.4.2-0000-SNAPSHOT</version>
+      <version>5.4.2-0000</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
