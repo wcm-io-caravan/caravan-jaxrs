@@ -19,6 +19,9 @@
  */
 package io.wcm.caravan.jaxrs.publisher;
 
+import java.util.Collection;
+import java.util.Collections;
+
 /**
  * Marker interface that have to implement all JAX-RS services and providers.
  */
@@ -33,4 +36,7 @@ public interface JaxRsComponent {
    */
   String PROPERTY_GLOBAL_COMPONENT = "caravan.jaxrs.global";
 
+  default Collection<Class<?>> getChildComponentClasses() {
+    return Collections.emptyList();
+  }
 }

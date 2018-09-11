@@ -21,6 +21,8 @@ package io.wcm.caravan.jaxrs.publisher.impl;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.ws.rs.core.Application;
 
@@ -56,6 +58,15 @@ class JaxRsApplication extends Application {
   @Override
   public Set<Object> getSingletons() {
     return Sets.union(globalComponents, localComponents);
+  }
+
+  @Override
+  public Set<Class<?>> getClasses() {
+
+    return Stream.concat(localComponents.stream(), globalComponents.stream())
+        .flatMap(component -> component.getChildComponentClasses().stream())
+        .collect(Collectors.toSet());
+
   }
 
   @Override
