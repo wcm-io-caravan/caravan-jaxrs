@@ -36,7 +36,16 @@ public interface JaxRsComponent {
    */
   String PROPERTY_GLOBAL_COMPONENT = "caravan.jaxrs.global";
 
-  default Collection<Class<?>> getChildComponentClasses() {
+  /**
+   * Can be implemented by any JaxRsComponent to register additional root resource, provider and
+   * {@link javax.ws.rs.core.Feature} classes to the JAX-RS runtime. These classes do not have to implement
+   * {@link JaxRsComponent} and should not be OSGI components (as their lifecycle and dependency injection is completely
+   * managed by JAX-RS). This allows to implement request-scoped resources with constructor initialization. Since OSGI's
+   * dependency injection is not possible for these instances, other singleton {@link JaxRsComponent} dependencies
+   * can be injected with the {@link javax.ws.rs.core.Context} annotation instead.
+   * @return a collection of classes to be returned by JAX-RS {@link javax.ws.rs.core.Application#getClasses()}
+   */
+  default Collection<Class<?>> getAdditionalJaxRsClassesToRegister() {
     return Collections.emptyList();
   }
 }

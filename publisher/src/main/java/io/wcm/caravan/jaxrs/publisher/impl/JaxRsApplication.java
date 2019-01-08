@@ -64,9 +64,8 @@ class JaxRsApplication extends Application {
   public Set<Class<?>> getClasses() {
 
     return Stream.concat(localComponents.stream(), globalComponents.stream())
-        .flatMap(component -> component.getChildComponentClasses().stream())
+        .flatMap(component -> component.getAdditionalJaxRsClassesToRegister().stream())
         .collect(Collectors.toSet());
-
   }
 
   @Override
