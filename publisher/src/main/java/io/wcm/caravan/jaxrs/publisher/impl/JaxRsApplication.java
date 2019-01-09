@@ -21,6 +21,8 @@ package io.wcm.caravan.jaxrs.publisher.impl;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.ws.rs.core.Application;
 
@@ -29,6 +31,7 @@ import org.glassfish.jersey.server.ServerProperties;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
 
+import io.wcm.caravan.jaxrs.publisher.JaxRsClassesProvider;
 import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
 
 /**
@@ -47,15 +50,27 @@ class JaxRsApplication extends Application {
 
   private final Set<JaxRsComponent> localComponents;
   private final Set<JaxRsComponent> globalComponents;
+  private Set<JaxRsClassesProvider> localClassesProviders;
+  private Set<JaxRsClassesProvider> globalClassesProviders;
 
-  JaxRsApplication(Set<JaxRsComponent> localComponents, Set<JaxRsComponent> globalComponents) {
+  JaxRsApplication(Set<JaxRsComponent> localComponents, Set<JaxRsComponent> globalComponents,
+      Set<JaxRsClassesProvider> localClassesProviders, Set<JaxRsClassesProvider> globalClassesProviders) {
     this.localComponents = localComponents;
     this.globalComponents = globalComponents;
+    this.localClassesProviders = localClassesProviders;
+    this.globalClassesProviders = globalClassesProviders;
   }
 
   @Override
   public Set<Object> getSingletons() {
     return Sets.union(globalComponents, localComponents);
+  }
+
+  @Override
+  public Set<Class<?>> getClasses() {
+    return Stream.concat(localClassesProviders.stream(), globalClassesProviders.stream())
+        .flatMap(component -> component.getClasses().stream())
+        .collect(Collectors.toSet());
   }
 
   @Override

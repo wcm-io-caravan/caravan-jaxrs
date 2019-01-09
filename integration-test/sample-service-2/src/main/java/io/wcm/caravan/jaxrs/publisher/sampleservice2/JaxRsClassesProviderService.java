@@ -2,7 +2,7 @@
  * #%L
  * wcm.io
  * %%
- * Copyright (C) 2015 wcm.io
+ * Copyright (C) 2019 wcm.io
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,40 +19,25 @@
  */
 package io.wcm.caravan.jaxrs.publisher.sampleservice2;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import java.util.Set;
 
-import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
-import org.osgi.service.component.ComponentContext;
 
-import io.wcm.caravan.jaxrs.publisher.ApplicationPath;
-import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
+import com.google.common.collect.ImmutableSet;
+
+import io.wcm.caravan.jaxrs.publisher.JaxRsClassesProvider;
 
 /**
- * Sample JAX-RS Service
+ * Sample JAX-RS classes provider.
  */
 @Component(immediate = true)
-@Service(JaxRsComponent.class)
-@Path("/serviceId")
-public class JaxRsService implements JaxRsComponent {
+@Service(JaxRsClassesProvider.class)
+public class JaxRsClassesProviderService implements JaxRsClassesProvider {
 
-  private String serviceId;
-
-  @Activate
-  protected void activate(ComponentContext componentContext) {
-    serviceId = ApplicationPath.get(componentContext);
-  }
-
-  /**
-   * Returns service id detected from OSGi component context
-   */
-  @GET
-  @Produces("text/plain")
-  public String getServiceId() {
-    return serviceId;
+  @Override
+  public Set<Class<?>> getClasses() {
+    return ImmutableSet.of(RequestScopeDateResource.class);
   }
 
 }

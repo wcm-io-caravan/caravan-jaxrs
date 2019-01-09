@@ -2,7 +2,7 @@
  * #%L
  * wcm.io
  * %%
- * Copyright (C) 2015 wcm.io
+ * Copyright (C) 2019 wcm.io
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,24 +17,34 @@
  * limitations under the License.
  * #L%
  */
-package io.wcm.caravan.jaxrs.publisher;
+package io.wcm.caravan.jaxrs.publisher.sampleservice2;
 
-import org.osgi.annotation.versioning.ConsumerType;
+import java.text.DateFormat;
+import java.util.Date;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 
 /**
- * Marker interface that is implemented by all JAX-RS services and providers
- * that are also OSGi components.
+ * Sample request-scoped data resource.
  */
-//CHECKSTYLE:OFF
-@ConsumerType
-public interface JaxRsComponent {
-  //CHECKSTYLE:ON
+@Path("/date")
+public class RequestScopeDateResource {
+
+  private final String date = DateFormat.getDateTimeInstance().format(new Date());
+
+  @Context
+  private JaxRsService service;
 
   /**
-   * OSGi property name that marks JaxRS components to be registered globally to all JAX-RS applications.
-   * The property value has to be set to "true".
-   * Such components have to be marked as "serviceFactory" as well to ensure bundle scope.
+   * @return the current date
    */
-  String PROPERTY_GLOBAL_COMPONENT = "caravan.jaxrs.global";
+  @GET
+  @Produces("text/plain")
+  public String getDate() {
+    return service.getServiceId() + " knows it's " + date;
+  }
 
 }
