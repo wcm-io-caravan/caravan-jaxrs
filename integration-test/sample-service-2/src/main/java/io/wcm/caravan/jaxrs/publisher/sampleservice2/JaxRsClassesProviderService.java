@@ -19,32 +19,25 @@
  */
 package io.wcm.caravan.jaxrs.publisher.sampleservice2;
 
-import java.text.DateFormat;
-import java.util.Date;
+import java.util.Set;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
+import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Service;
+
+import com.google.common.collect.ImmutableSet;
+
+import io.wcm.caravan.jaxrs.publisher.JaxRsClassesProvider;
 
 /**
- * Sample request-scoped data resource.
+ * Sample JAX-RS classes provider.
  */
-@Path("/date")
-public class RequestScopeDateResource {
+@Component(immediate = true)
+@Service(JaxRsClassesProvider.class)
+public class JaxRsClassesProviderService implements JaxRsClassesProvider {
 
-  private final String date = DateFormat.getDateTimeInstance().format(new Date());
-
-  @Context
-  private JaxRsService service;
-
-  /**
-   * @return the current date
-   */
-  @GET
-  @Produces("text/plain")
-  public String getDate() {
-    return service.getServiceId() + " knows it's " + date;
+  @Override
+  public Set<Class<?>> getClasses() {
+    return ImmutableSet.of(RequestScopeDateResource.class);
   }
 
 }

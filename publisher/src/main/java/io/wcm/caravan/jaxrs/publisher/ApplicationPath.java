@@ -19,6 +19,7 @@
  */
 package io.wcm.caravan.jaxrs.publisher;
 
+import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.ComponentContext;
@@ -26,6 +27,7 @@ import org.osgi.service.component.ComponentContext;
 /**
  * Gets JAX-RS application path (URI prefix) from OSGi header of the current bundle.
  */
+@ProviderType
 public final class ApplicationPath {
 
   /**

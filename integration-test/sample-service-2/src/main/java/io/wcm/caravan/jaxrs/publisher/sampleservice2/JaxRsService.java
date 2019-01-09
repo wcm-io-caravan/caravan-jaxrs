@@ -19,8 +19,6 @@
  */
 package io.wcm.caravan.jaxrs.publisher.sampleservice2;
 
-import java.util.Collection;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -29,8 +27,6 @@ import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.osgi.service.component.ComponentContext;
-
-import com.google.common.collect.ImmutableSet;
 
 import io.wcm.caravan.jaxrs.publisher.ApplicationPath;
 import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
@@ -48,10 +44,6 @@ public class JaxRsService implements JaxRsComponent {
   @Activate
   protected void activate(ComponentContext componentContext) {
     serviceId = ApplicationPath.get(componentContext);
-  }
-
-  public Collection<Class<?>> getAdditionalJaxRsClassesToRegister() {
-    return ImmutableSet.of(RequestScopeDateResource.class);
   }
 
   /**
