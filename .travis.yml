@@ -20,7 +20,8 @@
 language: java
 
 jdk:
-  - oraclejdk8
+- oraclejdk8
+- oraclejdk11
 
 # Make sure travis can use container-based infrastructure
 sudo: false
