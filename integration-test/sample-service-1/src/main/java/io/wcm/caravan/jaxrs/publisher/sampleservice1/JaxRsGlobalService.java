@@ -19,9 +19,6 @@
  */
 package io.wcm.caravan.jaxrs.publisher.sampleservice1;
 
-import io.wcm.caravan.jaxrs.publisher.ApplicationPath;
-import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -31,6 +28,9 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Service;
 import org.osgi.service.component.ComponentContext;
+
+import io.wcm.caravan.jaxrs.publisher.ApplicationPath;
+import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
 
 /**
  * Sample JAX-RS Service that is registered to all JAX-RS appliations in the OSGi container.
@@ -49,7 +49,7 @@ public class JaxRsGlobalService implements JaxRsComponent {
   }
 
   /**
-   * Returns service id detected from OSGi component context
+   * @return Returns service id detected from OSGi component context
    */
   @GET
   @Produces("text/plain")
