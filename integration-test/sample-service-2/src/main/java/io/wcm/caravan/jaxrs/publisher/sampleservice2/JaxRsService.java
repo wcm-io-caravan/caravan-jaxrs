@@ -47,7 +47,7 @@ public class JaxRsService implements JaxRsComponent {
   }
 
   /**
-   * Returns service id detected from OSGi component context
+   * @return Returns service id detected from OSGi component context
    */
   @GET
   @Produces("text/plain")
