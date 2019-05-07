@@ -67,8 +67,8 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>javax.annotation</groupId>
-      <artifactId>javax.annotation-api</artifactId>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-annotation_1.3_spec</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -101,12 +101,13 @@
           <embeddedTarget>/apps/${contentPackage.name}/install</embeddedTarget>
           <embeddeds>
             <embedded>
-              <groupId>
-                javax.ws.rs,
-                javax.annotation,
-                javax.validation,
-                io.wcm.osgi.wrapper
-              </groupId>
+              <artifactId>
+                javax.ws.rs-api,
+                geronimo-annotation_1.3_spec,
+                validation-api,
+                io.wcm.osgi.wrapper.jersey,
+                io.wcm.osgi.wrapper.hibernate-validator
+              </artifactId>
               <target>/apps/${contentPackage.name}/install/15</target>
             </embedded>
             <embedded>
