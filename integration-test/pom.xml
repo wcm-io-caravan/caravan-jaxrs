@@ -26,7 +26,7 @@
   <parent>
     <groupId>io.wcm.caravan</groupId>
     <artifactId>io.wcm.caravan.jaxrs.parent</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1-SNAPSHOT</version>
     <relativePath>../parent/pom.xml</relativePath>
   </parent>
 
@@ -40,7 +40,6 @@
   <modules>
     <module>sample-service-1</module>
     <module>sample-service-2</module>
-    <module>launchpad</module>
     <module>launchpad-test</module>
   </modules>
 

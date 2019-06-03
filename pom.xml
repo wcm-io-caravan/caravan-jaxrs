@@ -24,10 +24,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.wcm.caravan.maven</groupId>
-    <artifactId>io.wcm.caravan.maven.caravan-global-parent</artifactId>
-    <version>8</version>
-    <relativePath/>
+    <groupId>io.wcm.caravan</groupId>
+    <artifactId>io.wcm.caravan.jaxrs.parent</artifactId>
+    <version>1.1.1-SNAPSHOT</version>
+    <relativePath>parent/pom.xml</relativePath>
   </parent>
 
   <groupId>io.wcm.caravan</groupId>
@@ -42,6 +42,7 @@
     <module>parent</module>
     <module>publisher</module>
     <module>integration-test</module>
+    <module>examples/aem-caravan-jaxrs-sample</module>
   </modules>
 
   <build>

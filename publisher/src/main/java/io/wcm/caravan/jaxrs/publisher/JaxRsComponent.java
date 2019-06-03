@@ -19,10 +19,14 @@
  */
 package io.wcm.caravan.jaxrs.publisher;
 
+import org.osgi.annotation.versioning.ConsumerType;
+
 /**
- * Marker interface that have to implement all JAX-RS services and providers.
+ * Marker interface that is implemented by all JAX-RS services and providers
+ * that are also OSGi components.
  */
 //CHECKSTYLE:OFF
+@ConsumerType
 public interface JaxRsComponent {
   //CHECKSTYLE:ON
 

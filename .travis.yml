@@ -20,7 +20,8 @@
 language: java
 
 jdk:
-  - oraclejdk8
+- openjdk8
+- openjdk11
 
 # Make sure travis can use container-based infrastructure
 sudo: false
@@ -28,16 +29,14 @@ sudo: false
 install: "mvn -s ./.travis.maven-settings.xml clean"
 
 script:
-- "mvn -s ./.travis.maven-settings.xml -Pcontinuous-integration -U -Dmaven.javadoc.skip=true install"
-# Print output of integration test log
-- cat integration-test/launchpad-test/sling/logs/error.log
+- "mvn -s ./.travis.maven-settings.xml -Pcontinuous-integration -U install"
 # Remove wcm.io artefacts from repository before cache
 - rm -rf $HOME/.m2/repository/io/wcm
 
-# exlude release tags like xyz-1.0.0 or xyz-1
+# exclude release tags like xyz.xyz-1.0.0 or xyz-xyz-1
 branches:
   except:
-    - /^.*\-\d+(\.\d+\.\d+)?(\..*|\-.*)?$/
+    - /^.+(\.|\-).+\-\d+(\.\d+\.\d+)?(\..*|\-.*)?$/
 
 # Cache Maven Repository
 cache:
@@ -51,3 +50,7 @@ cache:
 #      - wcm-io-dev@googlegroups.com
 #    on_success: change
 #    on_failure: always
+
+# codecov.io integration
+after_success:
+- bash <(curl -s https://codecov.io/bash)

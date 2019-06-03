@@ -19,9 +19,6 @@
  */
 package io.wcm.caravan.jaxrs.publisher.sampleservice2;
 
-import io.wcm.caravan.jaxrs.publisher.ApplicationPath;
-import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -30,6 +27,9 @@ import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.osgi.service.component.ComponentContext;
+
+import io.wcm.caravan.jaxrs.publisher.ApplicationPath;
+import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
 
 /**
  * Sample JAX-RS Service
@@ -47,7 +47,7 @@ public class JaxRsService implements JaxRsComponent {
   }
 
   /**
-   * Returns service id detected from OSGi component context
+   * @return Returns service id detected from OSGi component context
    */
   @GET
   @Produces("text/plain")

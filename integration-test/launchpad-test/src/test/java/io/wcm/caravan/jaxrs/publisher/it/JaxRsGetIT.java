@@ -19,7 +19,11 @@
  */
 package io.wcm.caravan.jaxrs.publisher.it;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 
@@ -29,11 +33,13 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.hamcrest.Matchers;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 
 public class JaxRsGetIT {
 
-  private static final String SERVER_URL = "http://localhost:" + System.getProperty("jar.executor.server.port");
+  private static final String SERVER_URL = System.getProperty("launchpad.http.server.url");
 
   @Test
   public void testSampleService1NotFound() throws IOException {
@@ -64,6 +70,20 @@ public class JaxRsGetIT {
         "/caravan/jaxrs/test/sampleservice2", "text/plain");
   }
 
+  @Test
+  public void testSampleService2RequestScoped() throws Exception {
+    String dateUri = "/caravan/jaxrs/test/sampleservice2/date";
+
+    // verify that the resource is able to get the serviceId from the JaxRsComponent
+    String response1 = getResponseBody(dateUri);
+    assertThat(response1, startsWith("/caravan/jaxrs/test/sampleservice2"));
+
+    // verify that the resource is actually request-scoped (by checking that the time in the response changes)
+    Thread.sleep(2000);
+    String response2 = getResponseBody(dateUri);
+    assertThat(response1, not(equalTo(response2)));
+  }
+
   private void assertResponse(String url, String expectedResponse, String expectedContentType) throws IOException {
     String fullUrl = SERVER_URL + url;
     HttpGet get = new HttpGet(fullUrl);
@@ -78,6 +98,14 @@ public class JaxRsGetIT {
     HttpGet get = new HttpGet(fullUrl);
     HttpResponse response = new DefaultHttpClient().execute(get);
     assertEquals("Response code for " + fullUrl, HttpServletResponse.SC_NOT_FOUND, response.getStatusLine().getStatusCode());
+  }
+
+  private String getResponseBody(String url) throws IOException {
+    String fullUrl = SERVER_URL + url;
+    HttpGet get = new HttpGet(fullUrl);
+    HttpResponse response = new DefaultHttpClient().execute(get);
+    assertEquals("Response code for " + fullUrl, HttpServletResponse.SC_OK, response.getStatusLine().getStatusCode());
+    return EntityUtils.toString(response.getEntity());
   }
 
 }

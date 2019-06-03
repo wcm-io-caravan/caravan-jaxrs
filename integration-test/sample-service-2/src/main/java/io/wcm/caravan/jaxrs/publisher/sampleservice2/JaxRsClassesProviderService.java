@@ -2,7 +2,7 @@
  * #%L
  * wcm.io
  * %%
- * Copyright (C) 2015 wcm.io
+ * Copyright (C) 2019 wcm.io
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,25 +17,27 @@
  * limitations under the License.
  * #L%
  */
-package io.wcm.caravan.jaxrs.publisher.it;
+package io.wcm.caravan.jaxrs.publisher.sampleservice2;
 
-import org.apache.sling.junit.annotations.SlingAnnotationsTestRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import java.util.Set;
+
+import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Service;
+
+import com.google.common.collect.ImmutableSet;
+
+import io.wcm.caravan.jaxrs.publisher.JaxRsClassesProvider;
 
 /**
- * Currently no tests inside the instances are required.
- * To avoid complaints keep just one dummy test.
+ * Sample JAX-RS classes provider.
  */
-@RunWith(SlingAnnotationsTestRunner.class)
-public class DummyTest {
+@Component(immediate = true)
+@Service(JaxRsClassesProvider.class)
+public class JaxRsClassesProviderService implements JaxRsClassesProvider {
 
-  /**
-   * Dummy test
-   */
-  @Test
-  public void dummyTest() {
-    // test nothing
+  @Override
+  public Set<Class<?>> getClasses() {
+    return ImmutableSet.of(RequestScopeDateResource.class);
   }
 
 }
