@@ -23,7 +23,7 @@
     xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
   <body>
 
-    <release version="1.2.0" date="2018-06-03">
+    <release version="1.2.0" date="2019-06-03">
       <action type="add" dev="ssauder">
         Add new interface "JaxRsClassesProvider" to allow to register additional resources, providers and features that are not OSGi components.
       </action>
