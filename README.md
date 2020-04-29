@@ -11,7 +11,8 @@ JAX-RS integration for OSGi-based RESTful micro services.
 Documentation: https://caravan.wcm.io/jaxrs/<br/>
 Issues: https://wcm-io.atlassian.net/<br/>
 Wiki: https://wcm-io.atlassian.net/wiki/<br/>
-Continuous Integration: https://travis-ci.org/wcm-io-caravan/caravan-jaxrs/
+Continuous Integration: https://travis-ci.org/wcm-io-caravan/caravan-jaxrs/<br/>
+Commercial support: https://wcm.io/commercial-support.html
 
 
 ## Build from sources
