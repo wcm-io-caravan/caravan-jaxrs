@@ -1,6 +1,6 @@
 <img src="https://wcm.io/images/favicon-16@2x.png"/> wcm.io Caravan JAX-RS
 ======
-[![Build Status](https://travis-ci.org/wcm-io-caravan/caravan-jaxrs.png?branch=develop)](https://travis-ci.org/wcm-io-caravan/caravan-jaxrs)
+[![Build Status](https://travis-ci.com/wcm-io-caravan/caravan-jaxrs.png?branch=develop)](https://travis-ci.com/wcm-io-caravan/caravan-jaxrs)
 
 wcm.io Caravan - JSON Data Pipelining Infrastructure
 
@@ -11,7 +11,7 @@ JAX-RS integration for OSGi-based RESTful micro services.
 Documentation: https://caravan.wcm.io/jaxrs/<br/>
 Issues: https://wcm-io.atlassian.net/<br/>
 Wiki: https://wcm-io.atlassian.net/wiki/<br/>
-Continuous Integration: https://travis-ci.org/wcm-io-caravan/caravan-jaxrs/<br/>
+Continuous Integration: https://travis-ci.com/wcm-io-caravan/caravan-jaxrs/<br/>
 Commercial support: https://wcm.io/commercial-support.html
 
 
