@@ -1,6 +1,7 @@
 <img src="https://wcm.io/images/favicon-16@2x.png"/> wcm.io Caravan JAX-RS
 ======
 [![Build](https://github.com/wcm-io-caravan/caravan-jaxrs/workflows/Build/badge.svg?branch=develop)](https://github.com/wcm-io-caravan/caravan-jaxrs/actions?query=workflow%3ABuild+branch%3Adevelop)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=wcm-io-caravan_caravan-jaxrs&metric=coverage)](https://sonarcloud.io/summary/new_code?id=wcm-io-caravan_caravan-jaxrs)
 
 wcm.io Caravan - JSON Data Pipelining Infrastructure
 
