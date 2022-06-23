@@ -2,7 +2,7 @@
 
 Publishes OSGi services as JAX-RS RESTful services.
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.wcm.caravan/io.wcm.caravan.jaxrs.publisher/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.wcm.caravan/io.wcm.caravan.jaxrs.publisher)
+[![Maven Central](https://img.shields.io/maven-central/v/io.wcm.caravan/io.wcm.caravan.jaxrs.publisher)](https://repo1.maven.org/maven2/io/wcm/caravan/io.wcm.caravan.jaxrs.publisher/)
 
 
 ### Documentation
