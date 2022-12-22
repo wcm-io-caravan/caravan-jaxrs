@@ -10,7 +10,7 @@ wcm.io Caravan - JSON Data Pipelining Infrastructure
 JAX-RS integration for OSGi-based RESTful micro services.
 
 Documentation: https://caravan.wcm.io/jaxrs/<br/>
-Issues: https://wcm-io.atlassian.net/<br/>
+Issues: https://github.com/wcm-io-caravan/caravan-jaxrs/issues<br/>
 Wiki: https://wcm-io.atlassian.net/wiki/<br/>
 Continuous Integration: https://github.com/wcm-io-caravan/caravan-jaxrs/actions<br/>
 Commercial support: https://wcm.io/commercial-support.html
