@@ -32,7 +32,7 @@
   <groupId>io.wcm.caravan.samples</groupId>
   <artifactId>io.wcm.caravan.samples.aem-caravan-jaxrs-sample.core</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
 
   <name>aem-caravan-jaxrs-sample Core</name>
 
@@ -70,12 +70,21 @@
       </plugin>
 
       <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
+        <groupId>biz.aQute.bnd</groupId>
+        <artifactId>bnd-maven-plugin</artifactId>
         <configuration>
-          <instructions>
-            <Caravan-JaxRs-ApplicationPath>/aem-caravan-jaxrs-sample</Caravan-JaxRs-ApplicationPath>
-          </instructions>
+          <bnd>
+            Caravan-JaxRs-ApplicationPath: /aem-caravan-jaxrs-sample
+          </bnd>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+          </archive>
         </configuration>
       </plugin>
 

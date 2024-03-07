@@ -25,7 +25,7 @@
   <parent>
     <groupId>io.wcm.maven</groupId>
     <artifactId>io.wcm.maven.aem-global-parent</artifactId>
-    <version>1.2.34</version>
+    <version>2.1.16</version>
     <relativePath/>
   </parent>
 
@@ -41,7 +41,10 @@
 
     <!-- Sling instance parameters -->
     <sling.url>http://localhost:4502</sling.url>
-    
+
+    <!-- Enable reproducible builds -->
+    <project.build.outputTimestamp>2024-01-01T00:00:00Z</project.build.outputTimestamp>
+
   </properties>
 
   <dependencies>
