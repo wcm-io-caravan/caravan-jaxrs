@@ -208,6 +208,7 @@
           </execution>
         </executions>
         <configuration>
+          <skipLaunchpad>${integrationtests.skip}</skipLaunchpad>
           <usePomDependencies>true</usePomDependencies>
           <usePomVariables>true</usePomVariables>
           <servers>
@@ -315,6 +316,17 @@
         <launchpad.debug>true</launchpad.debug>
         <http.port>8080</http.port>
       </properties>            
+    </profile>
+
+    <!-- Skip Integration tests on Java 17 and 21 until we upgraded to latest Sling Starter -->
+    <profile>
+      <id>skip-java17</id>
+      <activation>
+        <jdk>[17,)</jdk>
+      </activation>
+      <properties>
+        <integrationtests.skip>true</integrationtests.skip>
+      </properties>
     </profile>
 
   </profiles>
