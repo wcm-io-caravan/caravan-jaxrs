@@ -20,7 +20,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        java: [11]
+        java: [11, 17]
         os: [ubuntu-latest]
         distribution: [temurin]
 
@@ -31,6 +31,6 @@ jobs:
           os: ${{ matrix.os }}
           java-version: ${{ matrix.java }}
           sonar-run-on-os: ubuntu-latest
-          sonar-run-on-java-version: 11
+          sonar-run-on-java-version: 17
           sonar-token: ${{ secrets.SONAR_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
