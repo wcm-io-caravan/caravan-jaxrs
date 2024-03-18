@@ -80,7 +80,7 @@ public class JaxRsBundleTracker implements BundleTrackerCustomizer<ComponentInst
       // register JAX-RS application as servlet on HTTP whiteboard
       Dictionary<String, Object> serviceConfig = new Hashtable<>();
       serviceConfig.put("alias", applicationPath);
-      serviceConfig.put(ServletContainerBridge.PROPERTY_BUNDLE, bundle);
+      serviceConfig.put(ServletContainerBridge.PROPERTY_BUNDLE_ID, bundle.getBundleId());
       return servletContainerBridgeFactory.newInstance(serviceConfig);
     }
     return null;
