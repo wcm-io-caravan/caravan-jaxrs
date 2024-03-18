@@ -28,8 +28,6 @@ import javax.ws.rs.core.Application;
 
 import org.glassfish.jersey.server.ServerProperties;
 
-import com.google.common.collect.Sets;
-
 import io.wcm.caravan.jaxrs.publisher.JaxRsClassesProvider;
 import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
 
@@ -61,7 +59,7 @@ class JaxRsApplication extends Application {
 
   @Override
   public Set<Object> getSingletons() {
-    return Sets.union(globalComponents, localComponents);
+    return Stream.concat(globalComponents.stream(), localComponents.stream()).collect(Collectors.toSet());
   }
 
   @Override

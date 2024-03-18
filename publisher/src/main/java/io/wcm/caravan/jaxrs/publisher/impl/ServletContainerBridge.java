@@ -21,6 +21,7 @@ package io.wcm.caravan.jaxrs.publisher.impl;
 
 import java.io.IOException;
 import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -41,8 +42,6 @@ import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.util.tracker.ServiceTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.collect.Sets;
 
 import io.wcm.caravan.jaxrs.publisher.JaxRsClassesProvider;
 import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
@@ -82,14 +81,14 @@ public class ServletContainerBridge extends HttpServlet {
     bundleContext = bundle.getBundleContext();
 
     // initialize component tracker to detect local and global JAX-RS components for current bundle
-    localComponents = Sets.newConcurrentHashSet();
-    globalComponents = Sets.newConcurrentHashSet();
+    localComponents = new ConcurrentSkipListSet<>();
+    globalComponents = new ConcurrentSkipListSet<>();
     jaxRsComponentTracker = new JaxRsComponentTracker(this);
     jaxRsComponentTracker.open();
 
     // initialize component tracker to detect local and global additionall JAX-RS classes
-    localClassesProviders = Sets.newConcurrentHashSet();
-    globalClassesProviders = Sets.newConcurrentHashSet();
+    localClassesProviders = new ConcurrentSkipListSet<>();
+    globalClassesProviders = new ConcurrentSkipListSet<>();
     jaxClassesProviderTracker = new JaxRsClassesProviderTracker(this);
     jaxClassesProviderTracker.open();
   }
