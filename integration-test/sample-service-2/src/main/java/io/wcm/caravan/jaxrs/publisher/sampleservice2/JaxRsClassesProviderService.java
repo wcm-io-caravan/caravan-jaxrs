@@ -21,23 +21,19 @@ package io.wcm.caravan.jaxrs.publisher.sampleservice2;
 
 import java.util.Set;
 
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Service;
-
-import com.google.common.collect.ImmutableSet;
+import org.osgi.service.component.annotations.Component;
 
 import io.wcm.caravan.jaxrs.publisher.JaxRsClassesProvider;
 
 /**
  * Sample JAX-RS classes provider.
  */
-@Component(immediate = true)
-@Service(JaxRsClassesProvider.class)
+@Component(service = JaxRsClassesProvider.class, immediate = true)
 public class JaxRsClassesProviderService implements JaxRsClassesProvider {
 
   @Override
   public Set<Class<?>> getClasses() {
-    return ImmutableSet.of(RequestScopeDateResource.class);
+    return Set.of(RequestScopeDateResource.class);
   }
 
 }

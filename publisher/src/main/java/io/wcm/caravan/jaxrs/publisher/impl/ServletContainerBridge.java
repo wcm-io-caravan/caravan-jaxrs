@@ -28,10 +28,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Deactivate;
-import org.apache.felix.scr.annotations.Service;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.osgi.framework.Bundle;
@@ -39,6 +35,9 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.util.tracker.ServiceTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,8 +53,7 @@ import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
  * It automatically registers JAX-RS components from the current bundle and instances
  * from global JAX-RS components factories.
  */
-@Component(factory = ServletContainerBridge.SERVLETCONTAINER_BRIDGE_FACTORY)
-@Service(Servlet.class)
+@Component(service = Servlet.class, factory = ServletContainerBridge.SERVLETCONTAINER_BRIDGE_FACTORY)
 public class ServletContainerBridge extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -69,10 +67,10 @@ public class ServletContainerBridge extends HttpServlet {
   private volatile boolean isDirty;
   private Set<JaxRsComponent> localComponents;
   private Set<JaxRsComponent> globalComponents;
-  private ServiceTracker jaxRsComponentTracker;
+  private ServiceTracker<JaxRsComponent, Object> jaxRsComponentTracker;
   private Set<JaxRsClassesProvider> localClassesProviders;
   private Set<JaxRsClassesProvider> globalClassesProviders;
-  private ServiceTracker jaxClassesProviderTracker;
+  private ServiceTracker<JaxRsClassesProvider, Object> jaxClassesProviderTracker;
 
   static final Logger log = LoggerFactory.getLogger(ServletContainerBridge.class);
 
@@ -97,7 +95,7 @@ public class ServletContainerBridge extends HttpServlet {
   }
 
   @Deactivate
-  void deactivate(ComponentContext componentContext) {
+  void deactivate() {
     if (jaxRsComponentTracker != null) {
       jaxRsComponentTracker.close();
     }
