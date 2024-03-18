@@ -60,7 +60,7 @@ public class ServletContainerBridge extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   static final String SERVLETCONTAINER_BRIDGE_FACTORY = "caravan.jaxrs.servletcontainer.bridge.factory";
-  static final String PROPERTY_BUNDLE = "caravan.jaxrs.relatedBundle";
+  static final String PROPERTY_BUNDLE_ID = "caravan.jaxrs.relatedBundleId";
 
   private BundleContext bundleContext;
   private Bundle bundle;
@@ -79,7 +79,8 @@ public class ServletContainerBridge extends HttpServlet {
   @Activate
   void activate(ComponentContext componentContext) {
     // bundle which contains the JAX-RS services
-    bundle = (Bundle)componentContext.getProperties().get(PROPERTY_BUNDLE);
+    bundle = componentContext.getBundleContext().getBundle(
+            (Long) componentContext.getProperties().get(PROPERTY_BUNDLE_ID));
     bundleContext = bundle.getBundleContext();
 
     // initialize component tracker to detect local and global JAX-RS components for current bundle
