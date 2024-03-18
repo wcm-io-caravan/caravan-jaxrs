@@ -80,7 +80,7 @@ public class ServletContainerBridge extends HttpServlet {
   void activate(ComponentContext componentContext) {
     // bundle which contains the JAX-RS services
     bundle = componentContext.getBundleContext().getBundle(
-            (Long) componentContext.getProperties().get(PROPERTY_BUNDLE_ID));
+        (Long)componentContext.getProperties().get(PROPERTY_BUNDLE_ID));
     bundleContext = bundle.getBundleContext();
 
     // initialize component tracker to detect local and global JAX-RS components for current bundle
