@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 # #%L
 #  wcm.io
 #  %%
-#  Copyright (C) 2017 wcm.io
+#  Copyright (C) 2017 - 2022 wcm.io
 #  %%
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -20,10 +20,11 @@
 # Call with "help" parameter to display syntax information
 
 # defaults
-SLING_URL="http://localhost:4502"
-SLING_USER="admin"
-SLING_PASSWORD="admin"
-CONGA_ENVIRONMENT="development"
+MAVEN_PROFILES="fast"
+SLING_URL=""
+SLING_USER=""
+SLING_PASSWORD=""
+CONGA_ENVIRONMENT="local"
 CONGA_NODE="aem-author"
 JVM_ARGS=""
 
@@ -36,19 +37,18 @@ DEPLOY=false
 HELP=false
 DEFAULT_COMMANDS=true
 
-####
-
 help_message_exit() {
   echo ""
   echo "  Syntax <parameters> <commands>"
   echo ""
   echo "  Parameters:"
-  echo "    --sling.url=${SLING_URL}"
-  echo "    --sling.user=${SLING_USER}"
-  echo "    --sling.password=${SLING_PASSWORD}"
-  echo "    --conga.environment=${CONGA_ENVIRONMENT}"
-  echo "    --conga.node=${CONGA_NODE}"
-  echo "    --jvm.args=${JVM_ARGS}"
+  echo "    --maven.profiles=${MAVEN_PROFILES}       or -P${MAVEN_PROFILES}"
+  echo "    --sling.url=${SLING_URL}                 or -Dsling.url=${SLING_URL}"
+  echo "    --sling.user=${SLING_USER}               or -Dsling.user=${SLING_USER}"
+  echo "    --sling.password=${SLING_PASSWORD}       or -Dsling.password=${SLING_PASSWORD}"
+  echo "    --conga.environment=${CONGA_ENVIRONMENT} or -Dconga.environment=${CONGA_ENVIRONMENT}"
+  echo "    --conga.node=${CONGA_NODE}               or -Dconga.node=${CONGA_NODE}"
+  echo "    --jvm.args=${JVM_ARGS}                   or -Djvm.args=${JVM_ARGS}"
   echo ""
   echo "  Commands:"
   echo "    build  - Clean and install maven project"
@@ -64,6 +64,10 @@ parse_parameters() {
   for i in "$@"
   do
   case $i in
+      --maven\.profiles=*|-P*)
+      MAVEN_PROFILES="${i#*=}"
+      shift # past argument=value
+      ;;
       --sling\.url=*|-Dsling\.url=*)
       SLING_URL="${i#*=}"
       shift # past argument=value
@@ -119,82 +123,101 @@ parse_parameters() {
 }
 
 welcome_message() {
-  echo -e "********************************************************************\e[96m"
+  echo "********************************************************************"
   if ([ "$BUILD" = true ] && [ "$DEPLOY" = true ]) || [ "$HELP" = true ]; then
-    echo "   ___ _   _ ___ _    ___      _     ___  ___ ___ _    _____   __"
-    echo "  | _ ) | | |_ _| |  |   \   _| |_  |   \| __| _ \ |  / _ \ \ / /"
-    echo "  | _ \ |_| || || |__| |) | |_   _| | |) | _||  _/ |_| (_) \ V /"
-    echo "  |___/\___/|___|____|___/    |_|   |___/|___|_| |____\___/ |_|"
+    echo -e "\e[96m   ___ _   _ ___ _    ___      _     ___  ___ ___ _    _____   __\e[0m"
+    echo -e "\e[96m  | _ ) | | |_ _| |  |   \   _| |_  |   \| __| _ \ |  / _ \ \ / /\e[0m"
+    echo -e "\e[96m  | _ \ |_| || || |__| |) | |_   _| | |) | _||  _/ |_| (_) \ V /\e[0m"
+    echo -e "\e[96m  |___/\___/|___|____|___/    |_|   |___/|___|_| |____\___/ |_|\e[0m"
   elif [ "$BUILD" = true ]; then
-    echo "   ___ _   _ ___ _    ___ "
-    echo "  | _ ) | | |_ _| |  |   \\"
-    echo "  | _ \ |_| || || |__| |) |"
-    echo "  |___/\___/|___|____|___/"
+    echo -e "\e[96m   ___ _   _ ___ _    ___ \e[0m"
+    echo -e "\e[96m  | _ ) | | |_ _| |  |   \\ \e[0m"
+    echo -e "\e[96m  | _ \ |_| || || |__| |) |\e[0m"
+    echo -e "\e[96m  |___/\___/|___|____|___/\e[0m"
   elif [ "$DEPLOY" = true ]; then
-    echo "   ___  ___ ___ _    _____   __"
-    echo "  |   \| __| _ \ |  / _ \ \ / /"
-    echo "  | |) | _||  _/ |_| (_) \ V /"
-    echo "  |___/|___|_| |____\___/ |_|"
+    echo -e "\e[96m   ___  ___ ___ _    _____   __\e[0m"
+    echo -e "\e[96m  |   \| __| _ \ |  / _ \ \ / /\e[0m"
+    echo -e "\e[96m  | |) | _||  _/ |_| (_) \ V /\e[0m"
+    echo -e "\e[96m  |___/|___|_| |____\___/ |_|\e[0m"
   fi
-  echo -e "\e[0m"
-  echo -e "  Destination: \e[1m${SLING_URL}\e[0m (\e[1m${CONGA_NODE}\e[0m)"
+  echo ""
+  echo -e "  Destination: \e[1m${CONGA_NODE}\e[0m (${MAVEN_PROFILES})"
   echo ""
   echo "********************************************************************"
 }
 
 completion_message() {
+  ELAPSED_TIME=$(($SECONDS - $START_TIME))
+  TOTAL_TIME="($(($ELAPSED_TIME/60)):$(printf "%02d" $(($ELAPSED_TIME%60))) min)"
+
   echo ""
   if [ "$BUILD" = true ] && [ "$DEPLOY" = true ]; then
-    echo -e "*** \e[1mBuild+Deploy complete\e[0m ***"
+    echo -e "*** \e[1mBuild+Deploy complete\e[0m $TOTAL_TIME ***"
   elif [ "$BUILD" = true ]; then
-    echo -e "*** \e[1mBuild complete\e[0m ***"
+    echo -e "*** \e[1mBuild complete\e[0m $TOTAL_TIME ***"
   elif [ "$DEPLOY" = true ]; then
-    echo -e "*** \e[1mDeploy complete\e[0m ***"
+    echo -e "*** \e[1mDeploy complete\e[0m $TOTAL_TIME ***"
   fi
   echo ""
 
   pause_message
 }
 
-####
-
 execute_build() {
   echo ""
   echo -e "*** \e[1mBuild application\e[0m ***"
   echo ""
 
-  mvn ${JVM_ARGS} \
-      -Dconga.environments=${CONGA_ENVIRONMENT}  \
-      -Pfast clean install eclipse:eclipse
-  
+  MAVEN_ARGS=""
+  if [ -n "$JVM_ARGS" ]; then
+    MAVEN_ARGS+="${JVM_ARGS} "
+  fi
+  if [ -n "${MAVEN_PROFILES}" ]; then
+    MAVEN_ARGS+="--activate-profiles ${MAVEN_PROFILES} "
+  fi
+  if [ -n "${CONGA_ENVIRONMENT}" ]; then
+    MAVEN_ARGS+="-Dconga.environments=${CONGA_ENVIRONMENT} "
+  fi
+
+  mvn $MAVEN_ARGS clean install eclipse:eclipse
+
   if [ "$?" -ne "0" ]; then
     exit_with_error "*** BUILD FAILED ***"
   fi
 }
-
-####
 
 execute_deploy() {
   echo ""
   echo -e "*** \e[1mDeploy to AEM\e[0m ***"
   echo ""
 
-  mvn -f config-definition \
-      ${JVM_ARGS} \
-      -Dconga.environments=${CONGA_ENVIRONMENT} \
-      -Dconga.nodeDirectory=target/configuration/${CONGA_ENVIRONMENT}/${CONGA_NODE} \
-      -Dsling.url=${SLING_URL} \
-      -Dsling.user=${SLING_USER} \
-      -Dsling.password=${SLING_PASSWORD} \
-      conga-aem:package-install
+  MAVEN_ARGS=""
+  if [ -n "$JVM_ARGS" ]; then
+    MAVEN_ARGS+="${JVM_ARGS} "
+  fi
+  if [ -n "${MAVEN_PROFILES}" ]; then
+    MAVEN_ARGS+="--activate-profiles=${MAVEN_PROFILES} "
+  fi
+  if [ -n "${CONGA_ENVIRONMENT}" ] && [ -n "${CONGA_NODE}" ]; then
+    MAVEN_ARGS+="-Dconga.environments=${CONGA_ENVIRONMENT} -Dconga.nodeDirectory=target/configuration/${CONGA_ENVIRONMENT}/${CONGA_NODE} "
+  fi
+  if [ -n "${SLING_URL}" ]; then
+    MAVEN_ARGS+="-Dsling.url=${SLING_URL} "
+  fi
+  if [ -n "${SLING_USER}" ]; then
+    MAVEN_ARGS+="-Dsling.user=${SLING_USER} "
+  fi
+  if [ -n "${SLING_PASSWORD}" ]; then
+    MAVEN_ARGS+="-Dsling.password=${SLING_PASSWORD} "
+  fi
+
+  mvn $MAVEN_ARGS -f config-definition conga-aem:package-install
 
   if [ "$?" -ne "0" ]; then
     exit_with_error "*** DEPLOY FAILED ***"
   fi
 
 }
-
-####
 
 # Display a pause message (only when the script was executed via double-click on windows)
 pause_message() {
@@ -212,7 +235,8 @@ exit_with_error() {
   exit 1
 }
 
-####
+
+START_TIME=$SECONDS
 
 parse_parameters "$@"
 welcome_message

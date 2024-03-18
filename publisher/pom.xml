@@ -32,7 +32,7 @@
   <groupId>io.wcm.caravan</groupId>
   <artifactId>io.wcm.caravan.jaxrs.publisher</artifactId>
   <version>1.2.1-SNAPSHOT</version>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
 
   <name>JAX-RS Publisher</name>
   <description>Publishes OSGi services as JAX-RS RESTful services.</description>
@@ -98,16 +98,21 @@
     <plugins>
 
       <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>baseline</id>
-            <goals>
-              <goal>baseline</goal>
-            </goals>
-          </execution>
-        </executions>
+        <groupId>biz.aQute.bnd</groupId>
+        <artifactId>bnd-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>biz.aQute.bnd</groupId>
+        <artifactId>bnd-baseline-maven-plugin</artifactId>
       </plugin>
 
     </plugins>

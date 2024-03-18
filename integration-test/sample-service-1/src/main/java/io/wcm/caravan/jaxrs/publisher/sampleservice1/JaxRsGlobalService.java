@@ -23,11 +23,10 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Property;
-import org.apache.felix.scr.annotations.Service;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.ServiceScope;
 
 import io.wcm.caravan.jaxrs.publisher.ApplicationPath;
 import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
@@ -35,9 +34,10 @@ import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
 /**
  * Sample JAX-RS Service that is registered to all JAX-RS appliations in the OSGi container.
  */
-@Component
-@Service(value = JaxRsComponent.class, serviceFactory = true)
-@Property(name = JaxRsComponent.PROPERTY_GLOBAL_COMPONENT, value = "true")
+@Component(
+    service = JaxRsComponent.class,
+    scope = ServiceScope.BUNDLE,
+    property = JaxRsComponent.PROPERTY_GLOBAL_COMPONENT + "=true")
 @Path("/globalServiceId")
 public class JaxRsGlobalService implements JaxRsComponent {
 

@@ -19,16 +19,10 @@
  */
 package io.wcm.caravan.jaxrs.publisher.impl;
 
-import io.wcm.caravan.jaxrs.publisher.ApplicationPath;
-
 import java.util.Dictionary;
 import java.util.Hashtable;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Deactivate;
-import org.apache.felix.scr.annotations.Reference;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
@@ -36,10 +30,16 @@ import org.osgi.service.component.ComponentConstants;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.ComponentFactory;
 import org.osgi.service.component.ComponentInstance;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.util.tracker.BundleTracker;
 import org.osgi.util.tracker.BundleTrackerCustomizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import io.wcm.caravan.jaxrs.publisher.ApplicationPath;
 
 /**
  * Bundle tracker that listens for all bundles added to the OSGi systems, and searches for JAX-RS components.
@@ -50,21 +50,20 @@ public class JaxRsBundleTracker implements BundleTrackerCustomizer<ComponentInst
 
   private static final Logger log = LoggerFactory.getLogger(JaxRsBundleTracker.class);
 
-  private BundleContext bundleContext;
-  private BundleTracker bundleTracker;
+  private BundleTracker<ComponentInstance> bundleTracker;
 
   @Reference(target = "(" + ComponentConstants.COMPONENT_FACTORY + "=" + ServletContainerBridge.SERVLETCONTAINER_BRIDGE_FACTORY + ")")
   private ComponentFactory servletContainerBridgeFactory;
 
   @Activate
   void activate(ComponentContext componentContext) {
-    bundleContext = componentContext.getBundleContext();
+    BundleContext bundleContext = componentContext.getBundleContext();
     this.bundleTracker = new BundleTracker<ComponentInstance>(bundleContext, Bundle.ACTIVE, this);
     this.bundleTracker.open();
   }
 
   @Deactivate
-  void deactivate(ComponentContext componentContext) {
+  void deactivate() {
     this.bundleTracker.close();
   }
 

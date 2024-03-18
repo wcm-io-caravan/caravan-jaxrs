@@ -23,10 +23,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Service;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
 
 import io.wcm.caravan.jaxrs.publisher.ApplicationPath;
 import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
@@ -34,8 +33,7 @@ import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
 /**
  * Sample JAX-RS Service
  */
-@Component(immediate = true)
-@Service(JaxRsComponent.class)
+@Component(service = JaxRsComponent.class, immediate = true)
 @Path("/serviceId")
 public class JaxRsService implements JaxRsComponent {
 
