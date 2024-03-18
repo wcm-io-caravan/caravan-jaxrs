@@ -27,6 +27,9 @@
       <action type="fix" dev="iakulenka" issue="4">
         Fix issue with AEMaaCS: Use bundle ID instead of bundle instance to pass over bundle reference to ServletContainerBridge.
       </action>
+      <action type="update" dev="sseifert">
+        Eliminate usage of Guava.
+      </action>
     </release>
 
     <release version="1.2.0" date="2019-06-03">

@@ -33,8 +33,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.google.common.collect.ImmutableSet;
-
 import io.wcm.caravan.jaxrs.publisher.JaxRsClassesProvider;
 import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
 
@@ -54,8 +52,8 @@ public class JaxRsApplicationTest {
   @Test
   public void test_getSingletons() throws Exception {
 
-    JaxRsApplication app = new JaxRsApplication(ImmutableSet.of(localComponent), ImmutableSet.of(globalComponent),
-        ImmutableSet.of(localClassesProvider), ImmutableSet.of(globalClassesProvider));
+    JaxRsApplication app = new JaxRsApplication(Set.of(localComponent), Set.of(globalComponent),
+        Set.of(localClassesProvider), Set.of(globalClassesProvider));
     Set<Object> singletons = app.getSingletons();
 
     assertEquals(2, singletons.size());
@@ -67,10 +65,10 @@ public class JaxRsApplicationTest {
   public void test_getClasses_from_local_components() throws Exception {
 
     when(localClassesProvider.getClasses())
-        .thenReturn(ImmutableSet.of(AdditionalResource.class));
+        .thenReturn(Set.of(AdditionalResource.class));
 
-    JaxRsApplication app = new JaxRsApplication(ImmutableSet.of(localComponent), ImmutableSet.of(globalComponent),
-        ImmutableSet.of(localClassesProvider), ImmutableSet.of(globalClassesProvider));
+    JaxRsApplication app = new JaxRsApplication(Set.of(localComponent), Set.of(globalComponent),
+        Set.of(localClassesProvider), Set.of(globalClassesProvider));
     Set<Class<?>> additionalClasses = app.getClasses();
 
     assertEquals(1, additionalClasses.size());
@@ -81,10 +79,10 @@ public class JaxRsApplicationTest {
   public void test_getClasses_from_global_components() throws Exception {
 
     when(globalClassesProvider.getClasses())
-        .thenReturn(ImmutableSet.of(AdditionalResource.class));
+        .thenReturn(Set.of(AdditionalResource.class));
 
-    JaxRsApplication app = new JaxRsApplication(ImmutableSet.of(localComponent), ImmutableSet.of(globalComponent),
-        ImmutableSet.of(localClassesProvider), ImmutableSet.of(globalClassesProvider));
+    JaxRsApplication app = new JaxRsApplication(Set.of(localComponent), Set.of(globalComponent),
+        Set.of(localClassesProvider), Set.of(globalClassesProvider));
     Set<Class<?>> additionalClasses = app.getClasses();
 
     assertEquals(1, additionalClasses.size());
