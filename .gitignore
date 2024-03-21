@@ -5,6 +5,7 @@ pom.xml.versionsBackup
 pom.xml.next
 release.properties
 maven-eclipse.xml
+infinitest.filters
 
 node_modules/
 npm-debug.log
@@ -15,13 +16,19 @@ npm-debug.log
 .settings
 .externalToolBuilders
 .pmd
+.eclipse-pmd
 .checkstyle
 .idea
-.iml
+.vagrant
 *.iml
 .DS_Store
+*.retry
 .rubygems
 .sass-cache
 .rubygems-gem-maven-plugin
 *.sublime-*
+*nbactions*.xml
 .temp/
+.vlt
+.vlt-sync*
+.brackets.json

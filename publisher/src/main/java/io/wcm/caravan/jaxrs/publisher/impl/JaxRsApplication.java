@@ -28,7 +28,6 @@ import javax.ws.rs.core.Application;
 
 import org.glassfish.jersey.server.ServerProperties;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
 
 import io.wcm.caravan.jaxrs.publisher.JaxRsClassesProvider;
@@ -39,14 +38,13 @@ import io.wcm.caravan.jaxrs.publisher.JaxRsComponent;
  */
 class JaxRsApplication extends Application {
 
-  private static final Map<String, Object> DEFAULT_PROPERTIES = ImmutableMap.<String, Object>builder()
+  private static final Map<String, Object> DEFAULT_PROPERTIES = Map.of(
       // look for implementations described by META-INF/services/*
-      .put(ServerProperties.METAINF_SERVICES_LOOKUP_DISABLE, false)
+      ServerProperties.METAINF_SERVICES_LOOKUP_DISABLE, false,
       // disable auto discovery on server, as it's handled via OSGI
-      .put(ServerProperties.FEATURE_AUTO_DISCOVERY_DISABLE, true)
+      ServerProperties.FEATURE_AUTO_DISCOVERY_DISABLE, true,
       // disable WADL generation by default
-      .put(ServerProperties.WADL_FEATURE_DISABLE, true)
-      .build();
+      ServerProperties.WADL_FEATURE_DISABLE, true);
 
   private final Set<JaxRsComponent> localComponents;
   private final Set<JaxRsComponent> globalComponents;
