@@ -49,6 +49,11 @@
     <url>https://github.com/wcm-io-caravan/caravan-jaxrs/actions</url>
   </ciManagement>
 
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/wcm-io-caravan/caravan-jaxrs/issues/</url>
+  </issueManagement>
+
   <properties>
     <site.url.module.prefix>jaxrs</site.url.module.prefix>
   </properties>
