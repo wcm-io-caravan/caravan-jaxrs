@@ -35,5 +35,5 @@ Dependencies:
 
 [usage]: usage.html
 [apidocs]: apidocs/
-[changelog]: changes-report.html
+[changelog]: changes.html
 [aem-caravan-jaxrs-sample]: https://github.com/wcm-io-caravan/caravan-jaxrs/tree/develop/examples/aem-caravan-jaxrs-sample
