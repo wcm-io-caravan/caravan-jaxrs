@@ -140,7 +140,6 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
         <executions>
-          <!-- Find free ports to run our server -->
           <execution>
             <id>reserve-network-port</id>
             <goals>
@@ -149,7 +148,6 @@
             <phase>initialize</phase>
             <configuration>
               <portNames>
-                <!-- reserved port must be stored in property because it must be passed to the feature-launcher-maven-plugin -->
                 <portName>http.port</portName>
               </portNames>
             </configuration>
@@ -212,7 +210,6 @@
         </executions>
       </plugin>
 
-      <!-- launch the Sling instances to test -->
       <plugin>
         <groupId>org.apache.sling</groupId>
         <artifactId>feature-launcher-maven-plugin</artifactId>
@@ -243,6 +240,7 @@
         </configuration>
         <executions>
           <execution>
+            <id>launcher-start</id>
             <goals>
               <goal>start</goal>
               <goal>stop</goal>
@@ -251,7 +249,6 @@
         </executions>
       </plugin>
 
-      <!-- run the ITs -->
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
         <configuration>
@@ -267,6 +264,7 @@
         </configuration>
         <executions>
           <execution>
+            <id>integration-test</id>
             <goals>
               <goal>integration-test</goal>
               <goal>verify</goal>
