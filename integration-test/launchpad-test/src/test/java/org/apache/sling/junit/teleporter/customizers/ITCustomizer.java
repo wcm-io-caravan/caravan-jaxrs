@@ -32,7 +32,7 @@ import static org.junit.Assert.fail;
 public class ITCustomizer implements TeleporterRule.Customizer {
 
     private static final HttpTest H = new HttpTest();
-    private static final int testReadyTimeout = Integer.getInteger("ClientSideTeleporter.testReadyTimeoutSeconds", 12);
+    private static final int TEST_READY_TIMEOUT_SECONDS = Integer.getInteger("ClientSideTeleporter.testReadyTimeoutSeconds", 12);
 
     @Override
     /** Customize the client-side TeleporterRule by first waiting
@@ -48,7 +48,7 @@ public class ITCustomizer implements TeleporterRule.Customizer {
         }
         final ClientSideTeleporter cst = (ClientSideTeleporter)t;
         cst.setBaseUrl(HttpTest.HTTP_BASE_URL);
-        cst.setTestReadyTimeoutSeconds(testReadyTimeout);
+        cst.setTestReadyTimeoutSeconds(TEST_READY_TIMEOUT_SECONDS);
 
         cst.setServerCredentials("admin", "admin");
     }
