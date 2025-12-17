@@ -1,0 +1,36 @@
+{
+  "bundles": [
+    {
+      "id": "io.wcm.osgi.wrapper/io.wcm.osgi.wrapper.jersey/2.27-0000",
+      "start-order": 15
+    },
+    {
+      "id": "io.wcm.osgi.wrapper/io.wcm.osgi.wrapper.hibernate-validator/5.4.2-0000",
+      "start-order": 15
+    },
+    {
+      "id": "javax.ws.rs/javax.ws.rs-api/2.1",
+      "start-order": 15
+    },
+    {
+      "id": "javax.validation/validation-api/1.1.0.Final",
+      "start-order": 15
+    },
+    {
+      "id": "com.google.guava/guava/15.0",
+      "start-order": 15
+    },
+    {
+      "id": "io.wcm.caravan/io.wcm.caravan.jaxrs.publisher/1.2.3-SNAPSHOT",
+      "start-order": 20
+    },
+    {
+      "id": "io.wcm.caravan/io.wcm.caravan.jaxrs.integration-test.sample-service-1/1-SNAPSHOT",
+      "start-order": 20
+    },
+    {
+      "id": "io.wcm.caravan/io.wcm.caravan.jaxrs.integration-test.sample-service-2/1-SNAPSHOT",
+      "start-order": 20
+    }
+  ]
+}
