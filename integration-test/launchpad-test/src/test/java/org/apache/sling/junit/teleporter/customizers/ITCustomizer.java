@@ -19,21 +19,37 @@
  */
 package org.apache.sling.junit.teleporter.customizers;
 
+import org.apache.sling.commons.testing.integration.HttpTest;
 import org.apache.sling.junit.rules.TeleporterRule;
 import org.apache.sling.testing.teleporter.client.ClientSideTeleporter;
-import org.apache.sling.testing.tools.sling.TimeoutsProvider;
 
+import static org.junit.Assert.fail;
+
+/** TeleporterRule Customizer used for Sling launchpad integration tests.
+ *  Waits for Sling to be ready and sets the appropriate parameters
+ *  on the ClientSideTeleporter.
+ */
 public class ITCustomizer implements TeleporterRule.Customizer {
 
-  public static final String BASE_URL_PROP = "launchpad.http.server.url";
+    private static final HttpTest H = new HttpTest();
+    private static final int testReadyTimeout = Integer.getInteger("ClientSideTeleporter.testReadyTimeoutSeconds", 12);
 
-  @Override
-  public void customize(TeleporterRule t, String options) {
-    final ClientSideTeleporter cst = (ClientSideTeleporter)t;
-    cst.setBaseUrl(System.getProperty(BASE_URL_PROP, BASE_URL_PROP + "_IS_NOT_SET"));
-    cst.setServerCredentials("admin", "admin");
-    cst.includeDependencyPrefix("io.wcm.caravan.jaxrs.publisher.it");
-    cst.setTestReadyTimeoutSeconds(TimeoutsProvider.getInstance().getTimeout(10));
-  }
+    @Override
+    /** Customize the client-side TeleporterRule by first waiting
+     *  for Sling to be ready and then setting it up with the test server
+     *  URL, timeout etc.
+     */
+    public void customize(TeleporterRule t, String options) {
+        // Setup Sling and the ClientSideTeleporter
+        try {
+            H.setUp();
+        } catch (Exception e) {
+            fail("HttpTest setup failed: " + e);
+        }
+        final ClientSideTeleporter cst = (ClientSideTeleporter)t;
+        cst.setBaseUrl(HttpTest.HTTP_BASE_URL);
+        cst.setTestReadyTimeoutSeconds(testReadyTimeout);
 
+        cst.setServerCredentials("admin", "admin");
+    }
 }
