@@ -40,20 +40,23 @@
   </description>
 
   <properties>
-    <!-- Java version -->
     <java.version>17</java.version>
-
-    <!-- Sling Starter version -->
     <sling.starter.version>14-SNAPSHOT</sling.starter.version>
+    <jaxrs.publisher.version>1.2.3-SNAPSHOT</jaxrs.publisher.version>
 
-    <!-- start with -DkeepITServerRunning=true to allow to rerun ITs or inspect the server after the ITs have been executed there -->
     <starter.min.bundles.count>200</starter.min.bundles.count>
     <it.startTimeoutSeconds>60</it.startTimeoutSeconds>
   </properties>
 
   <dependencies>
 
-    <!-- Additional bundles needed by the Sling instance under test -->    
+    <dependency>
+      <groupId>io.wcm.caravan</groupId>
+      <artifactId>io.wcm.caravan.jaxrs.publisher</artifactId>
+      <version>${jaxrs.publisher.version}</version>
+      <scope>compile</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.apache.sling</groupId>
       <artifactId>org.apache.sling.junit.teleporter</artifactId>
@@ -66,7 +69,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <!-- Dependencies for the Test Build and Run -->
     <dependency>
         <groupId>org.apache.sling</groupId>
         <artifactId>org.apache.sling.commons.testing</artifactId>
@@ -162,6 +164,7 @@
         <extensions>true</extensions>
 
         <configuration>
+          <replacePropertyVariables>jaxrs.publisher.version</replacePropertyVariables>
           <skipAddFeatureDependencies>true</skipAddFeatureDependencies>
           <aggregates>
             <aggregate>
@@ -343,29 +346,6 @@
           </plugins>
         </pluginManagement>
       </build>
-    </profile>
-
-    <!-- "Fast" profile for quick compile of the project without any unit tests etc. -->
-    <profile>
-      <id>fast</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <properties>
-        <unittests.skip>true</unittests.skip>
-        <integrationtests.skip>true</integrationtests.skip>
-        <maven.javadoc.skip>true</maven.javadoc.skip>
-      </properties>
-    </profile>
-
-    <!-- Start on port 8080 and keep running -->
-    <profile>
-      <id>run8080</id>
-      <properties>
-        <launchpad.keep.running>true</launchpad.keep.running>
-        <launchpad.debug>true</launchpad.debug>
-        <http.port>8080</http.port>
-      </properties>            
     </profile>
 
   </profiles>

@@ -21,7 +21,7 @@
       "start-order": 15
     },
     {
-      "id": "io.wcm.caravan/io.wcm.caravan.jaxrs.publisher/1.2.3-SNAPSHOT",
+      "id": "io.wcm.caravan/io.wcm.caravan.jaxrs.publisher/${jaxrs.publisher.version}",
       "start-order": 20
     },
     {
