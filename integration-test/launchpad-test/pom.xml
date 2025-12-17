@@ -71,7 +71,7 @@
         <groupId>org.apache.sling</groupId>
         <artifactId>org.apache.sling.commons.testing</artifactId>
         <version>2.2.0</version>
-        <scope>compile</scope>
+        <scope>test</scope>
         <exclusions>
           <exclusion>
             <groupId>org.slf4j</groupId>
@@ -162,7 +162,6 @@
         <extensions>true</extensions>
 
         <configuration>
-          <replacePropertyVariables>apache-cxf-version</replacePropertyVariables>
           <skipAddFeatureDependencies>true</skipAddFeatureDependencies>
           <aggregates>
             <aggregate>
@@ -221,7 +220,7 @@
               <id>sling-starter-oak-tar</id>
               <feature>
                 <groupId>io.wcm.caravan</groupId>
-                <artifactId>io.wcm.caravan.jaxws.integration-test.launchpad-test</artifactId>
+                <artifactId>io.wcm.caravan.jaxrs.integration-test.launchpad-test</artifactId>
                 <version>1-SNAPSHOT</version>
                 <classifier>app</classifier>
                 <type>slingosgifeature</type>
@@ -229,7 +228,6 @@
               <launcherArguments>
                 <vmOptions>
                   <value>--add-opens java.base/java.lang=ALL-UNNAMED</value>
-                  <value>--add-opens java.base/java.net=ALL-UNNAMED</value>
                 </vmOptions>
                 <frameworkProperties>
                   <org.osgi.service.http.port>${http.port}</org.osgi.service.http.port>
