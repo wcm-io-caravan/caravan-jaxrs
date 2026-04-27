@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        java: [17, 21, 25]
+        java: [21, 25]
         os: [ubuntu-latest]
         distribution: [temurin]
 
@@ -26,7 +26,7 @@ jobs:
           os: ${{ matrix.os }}
           java-version: ${{ matrix.java }}
           sonar-run-on-os: ubuntu-latest
-          sonar-run-on-java-version: 17
+          sonar-run-on-java-version: 21
           sonar-token: ${{ secrets.SONAR_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           # clean install required for slingfeature-maven-plugin
